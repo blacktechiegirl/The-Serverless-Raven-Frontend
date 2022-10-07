@@ -1,4 +1,4 @@
-service: serverlesstweetv1.0
+service: serverlesstweet
 frameworkVersion: '3'
 
 provider: 
