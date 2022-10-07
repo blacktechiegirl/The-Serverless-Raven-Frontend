@@ -11,7 +11,7 @@ plugins:
   - serverless-s3-sync
 
 custom:
-  sitename: serverlesstweetbucketv1.0
+  sitename: serverlesstweets3bucket
   s3Sync:
     - bucketName: ${self:custom.sitename}
       localDir: serverlesstweet/build
