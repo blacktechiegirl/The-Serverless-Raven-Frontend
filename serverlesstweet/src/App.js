@@ -21,6 +21,8 @@ import Topics from "./Topics";
 import Profile from "./Profile";
 import CircularProgress from "./UI/CircularProgress";
 import Skeleton from "./UI/Skeleton";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const HomePage = () => {
   const username = localStorage.getItem("userName");
@@ -46,6 +48,7 @@ const HomePage = () => {
   const [commentLoader, setCommentLoader] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [updateIndex, setUpdateIndex] = useState();
+  const [selectedOption, setSelectedOption] = useState()
 
   const handleModalState = (item, id, index) => {
     setShowModal(!showModal);
@@ -54,13 +57,27 @@ const HomePage = () => {
     setUpdateIndex(index);
   };
 
+  const options = [
+    { value: "lambda", label: "Lambda" },
+    { value: "stepfunctions", label: "Step Functions" },
+    { value: "apigateway", label: "Api Gateway" },
+    { value: "dynamodb", label: "Dynamodb" },
+    { value: "sns", label: "SNS" },
+    { value: "appsync", label: "AppSync" },
+  ];
+
+  console.log(selectedOption)
+
   // Post a new Tweet
   const createPost = async (content) => {
+    let topics = []
+    selectedOption.map((item)=> topics.push(item.value))
     setPostLoader(true);
     const userData = {
       userid,
       username,
       content,
+      topics,
     };
     try {
       const output = await accountpath.createPost(userData);
@@ -113,20 +130,17 @@ const HomePage = () => {
     }
   };
 
-   // Delete a Tweet
-   const deletePost = async () => {
+  // Delete a Tweet
+  const deletePost = async () => {
     setPostLoader(true);
-   
 
     // console.log(deleteIndex);
     try {
       const output = await accountpath.deletePost(deleteId, userid);
-      console.log(deleteId)
+      console.log(deleteId);
       if (output) {
         if (parseInt(output.status) === 200) {
-          setPostData([
-           ...postData.filter((item) => deleteId !== item.postId)
-          ]);
+          setPostData([...postData.filter((item) => deleteId !== item.postId)]);
           setPostLoader(false);
           setUserTweet("");
           ToastSuccess(output.data.message);
@@ -163,6 +177,7 @@ const HomePage = () => {
       try {
         const output = await accountpath.getPosts();
         if (output) {
+          console.log(output)
           if (parseInt(output.status) === 200) {
             setAllData(output.data.data);
             setPostData(output.data.data);
@@ -232,7 +247,10 @@ const HomePage = () => {
           <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
               <div class="mx-auto flex items-center justify-center">
-                <FontAwesomeIcon icon={faTriangleExclamation} className="text-[red] text-3xl mb-6"/>
+                <FontAwesomeIcon
+                  icon={faTriangleExclamation}
+                  className="text-[red] text-3xl mb-6"
+                />
               </div>
               <h3 class="text-lg leading-6 font-medium text-gray-900">
                 Confirm Delete Action
@@ -244,24 +262,26 @@ const HomePage = () => {
               </div>
               <div class="flex justify-between px-4 py-3">
                 <button
-                onClick={() => {
-                  setShowDeleteModal(false)}}
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                  }}
                   id="ok-btn"
                   class="px-4 py-2 text-sm bg-[#353bc1] text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 >
                   Decline
                 </button>
                 <button
-                onClick={()=> deletePost()}
+                  onClick={() => deletePost()}
                   id="ok-btn"
                   class="px-4 py-2 text-sm bg-red-500 text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
                 >
                   {postLoader ? (
-                      <div className="text-white relative py-2">
-                        <CircularProgress />
-                      </div>
-                    ) :
-                  'Approve'}
+                    <div className="text-white relative py-2">
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    "Approve"
+                  )}
                 </button>
               </div>
             </div>
@@ -317,19 +337,25 @@ const HomePage = () => {
 
                 {/* <!-- Modal body --> */}
                 <div className="p-6 space-y-6">
-                  Tweet something interesting !
+                  {updateContent ? null : (
+                    <div>
+                      <p className="mb-4">What do you want to talk about ?*</p>
+                      <Select
+                        options={options}
+                        isSearchable={true}
+                        isMulti={true}
+                        value={selectedOption}
+                        onChange={setSelectedOption}
+                      />
+                    </div>
+                  )}
+                  <p>Tweet something interesting !</p>
                   <textarea
                     defaultValue={updateContent}
                     rows={6}
                     className="w-[100%] border border-gray-400 rounded-md my-5 outline-none focus:border-2 focus:border-gray-400 p-4"
                     onChange={(event) => setPostContent(event.target.value)}
                   ></textarea>
-                  {updateContent ? null : (
-                    <div>
-                      <p>What did you talk about ?*</p>
-                      <input className="w-full border border-gray-400 rounded-md my-5 outline-none focus:border-2 focus:border-gray-400 p-2"></input>
-                    </div>
-                  )}
                 </div>
                 {/* <!-- Modal footer --> */}
                 <div className="flex justify-end items-center p-6 rounded-b border-t border-gray-200 ">
@@ -413,8 +439,9 @@ const HomePage = () => {
                                   icon={faTrash}
                                   className="text-[#353bc1] mx-2 cursor-pointer"
                                   onClick={() => {
-                                    setDeleteId(item.postId)
-                                    setShowDeleteModal(true)}}
+                                    setDeleteId(item.postId);
+                                    setShowDeleteModal(true);
+                                  }}
                                 />
                               </div>
                             ) : null}

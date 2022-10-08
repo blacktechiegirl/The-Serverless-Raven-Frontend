@@ -45,6 +45,17 @@ export default class AccountService {
     );
   }
 
+  getTopic(topicid) {
+    return axios.get(
+      `https://3o44b07yni.execute-api.us-east-1.amazonaws.com/dev/topic/${topicid}`,
+      {
+        headers: {
+          Authorization: this.idToken,
+        },
+      }
+    );
+  }
+
   getPostById(userId) {
     return axios.get(
       `https://3o44b07yni.execute-api.us-east-1.amazonaws.com/dev/posts/${userId}`,

@@ -17,7 +17,7 @@ const App = () =>{
         <Route path='/' exact element={<Login/>}/>
         <Route path='/signup' exact element={<SignUp/>}/>
         <Route path='/reset/password' exact element={<ForgotPass/>}/>
-        <Route path='/topic' exact element = {<NewTopic/>} />
+        <Route path='/topic/:topicid' exact element = {<NewTopic/>} />
         <Route path='/user/tweets' exact element = {<UserTweets/>} />
     </Routes>
 </Router>

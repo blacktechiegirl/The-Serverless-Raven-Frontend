@@ -9,6 +9,8 @@ import TextareaAutosize from "react-textarea-autosize";
 import CircularProgress from "./UI/CircularProgress";
 import lambda1 from "./assets/lambda1.svg";
 import Navbar from "./Navbar";
+import { useParams } from "react-router-dom";
+
 
 const NewTopic = () => {
   const [allData, setAllData] = useState([]);
@@ -20,6 +22,8 @@ const NewTopic = () => {
   const skelArr = [1, 2, 3, 4];
   const [commnetLoading, setCommentLoading] = useState(false);
   const [commentLoader, setCommentLoader] = useState(false);
+  const { topicid } = useParams();
+
 
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
@@ -49,8 +53,9 @@ const NewTopic = () => {
     async function fetchData() {
       setPostLoading(true);
       try {
-        const output = await accountpath.getPosts();
+        const output = await accountpath.getTopic(topicid);
         if (output) {
+          console.log(output)
           if (parseInt(output.status) === 200) {
             setAllData(output.data.data);
             setPostLoading(false);

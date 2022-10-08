@@ -9,6 +9,15 @@ import TextareaAutosize from "react-textarea-autosize";
 import CircularProgress from "./UI/CircularProgress";
 import lambda1 from "./assets/lambda1.svg";
 import Navbar from "./Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPen,
+  faTrash,
+  faBars,
+  faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer } from "react-toastify";
+
 
 const UserTweets = () => {
   const [allData, setAllData] = useState([]);
@@ -20,6 +29,12 @@ const UserTweets = () => {
   const skelArr = [1, 2, 3, 4];
   const [commnetLoading, setCommentLoading] = useState(false);
   const [commentLoader, setCommentLoader] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [postLoader, setPostLoader] = useState(false);
+
+
+
 
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
@@ -58,6 +73,7 @@ const UserTweets = () => {
       setPostLoading(true);
     try {
       const output = await accountpath.getPostById(userid);
+  
       console.log(output);
       if (output) {
         if (parseInt(output.status) === 200) {
@@ -117,12 +133,90 @@ const UserTweets = () => {
     }
   };
 
+   // Delete a Tweet
+   const deletePost = async () => {
+    setPostLoader(true);
+
+    // console.log(deleteIndex);
+    try {
+      const output = await accountpath.deletePost(deleteId, userid);
+      console.log(deleteId);
+      if (output) {
+        if (parseInt(output.status) === 200) {
+          setAllData([...allData.filter((item) => deleteId !== item.postId)]);
+          setPostLoader(false);
+          ToastSuccess(output.data.message);
+          setShowDeleteModal(false);
+        }
+      }
+    } catch (err) {
+      ToastError(err);
+    }
+  };
+
+  const handleModalState = (item, id, index) => {
+    // setShowModal(!showModal);
+    // setUpdateContent(item);
+    // setUpdateId(id);
+    // setUpdateIndex(index);
+  };
+
   return (
     <div>
+      {showDeleteModal ? (
+        <div
+          class="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
+          id="my-modal"
+        >
+          {" "}
+          <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+              <div class="mx-auto flex items-center justify-center">
+                <FontAwesomeIcon
+                  icon={faTriangleExclamation}
+                  className="text-[red] text-3xl mb-6"
+                />
+              </div>
+              <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Confirm Delete Action
+              </h3>
+              <div class="mt-2 px-7 py-3">
+                <p class="text-sm text-gray-500">
+                  Are you sure you want to delete this post ?
+                </p>
+              </div>
+              <div class="flex justify-between px-4 py-3">
+                <button
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                  }}
+                  id="ok-btn"
+                  class="px-4 py-2 text-sm bg-[#353bc1] text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                  Decline
+                </button>
+                <button
+                  onClick={() => deletePost()}
+                  id="ok-btn"
+                  class="px-4 py-2 text-sm bg-red-500 text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                >
+                  {postLoader ? (
+                    <div className="text-white relative py-2">
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    "Approve"
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <Navbar />
       <div className="container mx-auto sm:px-10 lg:px-20 font-sora">
         <div className="flex">
-          <div className="bg-white h-44 my-14 rounded-full w-44 flex justify-center items-center text-5xl text-[#353bc1] font-bold ">
+          <div className="border border-2 border-[#353bc1] bg-white h-44 my-14 rounded-full w-44 flex justify-center items-center text-5xl text-[#353bc1] font-bold ">
             {firstname + lastname}
           </div>
           <div className="flex justify-center  flex-col">
@@ -144,6 +238,7 @@ const UserTweets = () => {
                 </div>)
             })}
           </div>
+          {allData.length > 0 ? 
         <div className=" flex">
           <div className="container w-[65%] overflow-auto h-[800px]">
             <div>
@@ -155,6 +250,7 @@ const UserTweets = () => {
                   ))}
                 </div>
               ) : (
+
                 allData.map((item, index) => {
                   return (
                     <div className=" bg-white hover:shadow-2xl   mt-0 mb-5 p-5 rounded-lg">
@@ -165,6 +261,27 @@ const UserTweets = () => {
                         <div className="relative col-span-8">
                           <div className="flex justify-between">
                             <p className="font-bold ">{item.userName}</p>
+                            <div className="flex justify-between">
+                                <FontAwesomeIcon
+                                  icon={faPen}
+                                  className="text-[#353bc1] mx-2 cursor-pointer"
+                                  onClick={() =>
+                                    handleModalState(
+                                      item.content,
+                                      item.postId,
+                                      index
+                                    )
+                                  }
+                                />
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  className="text-[#353bc1] mx-2 cursor-pointer"
+                                  onClick={() => {
+                                    setDeleteId(item.postId);
+                                    setShowDeleteModal(true);
+                                  }}
+                                />
+                              </div>
                           </div>
                           <i className="text-sm">
                             {format(item.date, "en_US")}
@@ -285,8 +402,9 @@ const UserTweets = () => {
               </div>
             )}
           </div>
-        </div>
+        </div>: null}
       </div>
+      <ToastContainer />
     </div>
   );
 };

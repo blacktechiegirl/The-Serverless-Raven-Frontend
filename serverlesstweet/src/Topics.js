@@ -18,7 +18,7 @@ const Topics = () => {
       </p>
       <div className=" grid lg:grid-cols-6 md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm">
         <div 
-        onClick={() => navigate('/topic')}
+        onClick={() => navigate('/topic/lambda')}
         className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 ">
           <img
             src={lambda1}
