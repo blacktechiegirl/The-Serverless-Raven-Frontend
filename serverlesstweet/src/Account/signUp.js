@@ -124,17 +124,7 @@ const SignUp = () => {
               label="Confirm Password"
             />
 
-            {/* Forgot Password */}
-            <div
-              className="flex justify-end mt-3 text-['#949393'] cursor-pointer text-['13px']"
-              onClick={() => {
-                navigate("/reset/password");
-              }}
-            >
-              <i>
-                <p style={{ margin: 0 }}>forgot password?</p>
-              </i>
-            </div>
+    
 
             {/* Login Button */}
             {loading ? (

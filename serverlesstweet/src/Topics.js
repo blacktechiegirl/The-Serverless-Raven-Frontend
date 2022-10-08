@@ -17,30 +17,39 @@ const Topics = () => {
         Get started with serverless Topics
       </p>
       <div className=" grid lg:grid-cols-6 md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm">
-        <div 
-        onClick={() => navigate('/topic/lambda')}
-        className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 ">
+        <div
+          onClick={() => navigate("/topic/lambda")}
+          className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
+        >
           <img
             src={lambda1}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
           />
           <p className="absolute bottom-3"> Lambda</p>
         </div>
-        <div className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative ">
+        <div
+          onClick={() => navigate("/topic/stepfunction")}
+          className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+        >
           <img
             src={stepfunction}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
           />
           <p className="absolute bottom-3"> Step Function</p>
         </div>
-        <div className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative ">
+        <div
+          onClick={() => navigate("/topic/apigateway")}
+          className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+        >
           <img
             src={apigateway}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
           />
           <p className="absolute bottom-3"> Api Gateway</p>
         </div>
-        <div className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative">
+        <div 
+                onClick={() => navigate('/topic/dynamodb')}
+                className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative">
           <img
             src={dynamodb}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
