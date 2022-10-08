@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import iam from "./assets/IAM.svg";
 import lambda1 from "./assets/lambda1.svg";
 import stepfunction from "./assets/stepfunction.svg";
@@ -7,13 +9,17 @@ import dynamodb from "./assets/dynamodb.svg";
 import codepipeline from "./assets/codepipeline.svg";
 
 const Topics = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <p className="mt-10 mb-3 text-xl font-bold mb-4 text-[#353bc1]">
         Get started with serverless Topics
       </p>
       <div className=" grid lg:grid-cols-6 md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm">
-        <div className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 ">
+        <div 
+        onClick={() => navigate('/topic')}
+        className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 ">
           <img
             src={lambda1}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
