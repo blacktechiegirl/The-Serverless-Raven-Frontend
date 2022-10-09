@@ -1,17 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-    fontFamily: {
-      'smooch': ['Smooch'],
-      'sora': ['Sora'],
-      'montserrat': ['montserrat'],
-    
-    },
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
 
+  theme: {
+    extend: {
+      backgroundImage: {
+        hero: "url('/src/assets/loginbg.svg')",
+      },
+    },
+    fontFamily: {
+      smooch: ["Smooch"],
+      sora: ["Sora"],
+      montserrat: ["montserrat"],
+    },
   },
   plugins: [],
-}
+};

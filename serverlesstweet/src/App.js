@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import Tweets from "./Tweets";
 import { AiOutlineLike, AiOutlineRetweet } from "react-icons/ai";
 import { BsChatDotsFill, BsChatDots } from "react-icons/bs";
-import Modal from "./UI/Modal";
 import { ToastError, ToastSuccess } from "./UI/ToastTweet";
 import AccountService from "./AuthService";
 import { format } from "timeago.js";
@@ -13,7 +12,6 @@ import { ToastContainer } from "react-toastify";
 import {
   faPen,
   faTrash,
-  faBars,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,13 +20,13 @@ import Profile from "./Profile";
 import CircularProgress from "./UI/CircularProgress";
 import Skeleton from "./UI/Skeleton";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
 
 const HomePage = () => {
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
   const accountpath = new AccountService();
   const skelArr = [1, 2, 3, 4];
+  
 
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -401,8 +399,8 @@ const HomePage = () => {
           </p>
         </div>
         <div className=" flex">
-          <Profile />
-          <div className="container w-[50%] overflow-auto h-[800px]">
+                      <Profile />
+          <div className="container w-[65%] overflow-auto h-[800px]">
             <div>
               {postLoading ? (
                 <div className="bg-white ml-10 mr-5 p-10">

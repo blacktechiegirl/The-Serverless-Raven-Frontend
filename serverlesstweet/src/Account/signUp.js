@@ -26,39 +26,66 @@ const SignUp = () => {
   attributeList.push(attributeUsername);
   console.log(attributeList);
 
-  const onSubmit = (event) => {
-    event.preventDefault()
-    if(username || email || password || confirmPassword !== ''){
+  const passRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
 
-    setLoading(true)
-    try {
-      if (password === confirmPassword) {
-        userpool.signUp(email, password, attributeList, null, (err, result) => {
-          if (result){
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const validEmail = emailRegex.test(email);
+  const validPassword = passRegex.test(password);
+  console.log(validPassword);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (
+      username == "" ||
+      email == "" ||
+      password == "" ||
+      confirmPassword === ""
+    ) {
+      ToastError("Please Enter all  fields");
+    } else if (validEmail === false) {
+      ToastError("Please Enter a valid email address !");
+    } else if (validPassword === false) {
+      ToastError(
+        "Please enter a password with at least 8 characters, 1 uppercase, 1 number and 1 symbol"
+      );
+    } else {
+      setLoading(true);
+      try {
+        if (password === confirmPassword) {
+          userpool.signUp(
+            email,
+            password,
+            attributeList,
+            null,
+            (err, result) => {
+              if (result) {
+                setLoading(false);
+                setEmail("");
+                setConfirmPassword("");
+                setPassword("");
+                console.log(result);
+                ToastSuccess(
+                  "You have signed up successfully. Kindly Verify your Email and sign in again"
+                );
+              }
+            }
+          );
+        } else {
+          ToastError("Password does not match");
           setLoading(false);
-          setEmail("");
           setConfirmPassword("");
           setPassword("");
-          console.log(result);
-          ToastSuccess(
-            "You have signed up successfully. Kindly Verify your Email and sign in again"
-          )}
-        });
-      } else {
-        ToastError("Password does not match");
-        setLoading(false);
+        }
+      } catch (err) {
+        console.log(err);
+        setEmail("");
         setConfirmPassword("");
         setPassword("");
+        setLoading(false);
+        ToastError(err.message);
       }
-    } catch (err) {
-      console.log(err);
-      setEmail("");
-      setConfirmPassword("");
-      setPassword("");
-      setLoading(false);
-      ToastError(err.message);
-    }}else{
-      ToastError('Please Enter all required fields')
     }
   };
 
@@ -69,9 +96,7 @@ const SignUp = () => {
         <h1 className="text-[40px] lg:text-[40px] md:text-[50px] xl:text-[50px] 2xl:text-[50px] font-montserrat font-bold text-center ">
           Hey Guys<br></br>Let's Tweet Serverless !
         </h1>
-        <p className="text-[40px] font-smooch">
-          welcome to www.serverlesstweet.com
-        </p>
+
       </div>
 
       {/* Left hand pane of login page */}
@@ -123,8 +148,6 @@ const SignUp = () => {
               onChange={(event) => setConfirmPassword(event.target.value)}
               label="Confirm Password"
             />
-
-    
 
             {/* Login Button */}
             {loading ? (

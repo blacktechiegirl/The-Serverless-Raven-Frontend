@@ -1,6 +1,10 @@
 import React from "react";
+import userpool from "./Account/userpool";
+
 
 const Profile = () => {
+  const cognitoUser = userpool.getCurrentUser();
+
   const username = localStorage.getItem("userName");
   const firstname = username.split(" ")[0][0];
   let lastname;
@@ -31,8 +35,13 @@ const Profile = () => {
           <div className="text-center p-3 mb-2">Step Functions</div>
         </div>
       </div>
-      <div className="text-[#353bc1] p-4 absolute bottom-0 text-center w-[250px]   ">
-        View my profile
+      <div className="text-[#353bc1] p-4 absolute bottom-0 text-center w-[250px] cursor-pointer   "
+        onClick={ ()=> {
+          cognitoUser.signOut()
+
+        }}
+      >
+        Logout
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const Topics = () => {
       </p>
       <div className=" grid lg:grid-cols-6 md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm">
         <div
-          onClick={() => navigate("/topic/lambda")}
+          onClick={() => navigate("/topic/0")}
           className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
         >
           <img
@@ -28,7 +28,7 @@ const Topics = () => {
           <p className="absolute bottom-3"> Lambda</p>
         </div>
         <div
-          onClick={() => navigate("/topic/stepfunction")}
+          onClick={() => navigate("/topic/1")}
           className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
         >
           <img
@@ -38,7 +38,7 @@ const Topics = () => {
           <p className="absolute bottom-3"> Step Function</p>
         </div>
         <div
-          onClick={() => navigate("/topic/apigateway")}
+          onClick={() => navigate("/topic/2")}
           className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
         >
           <img
@@ -47,23 +47,30 @@ const Topics = () => {
           />
           <p className="absolute bottom-3"> Api Gateway</p>
         </div>
-        <div 
-                onClick={() => navigate('/topic/dynamodb')}
-                className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative">
+        <div
+          onClick={() => navigate("/topic/3")}
+          className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative"
+        >
           <img
             src={dynamodb}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
           />
           <p className="absolute bottom-3"> Dynamodb</p>
         </div>
-        <div className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative ">
+        <div
+          onClick={() => navigate("/topic/4")}
+          className="bg-white shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+        >
           <img
             src={codepipeline}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
           />
           <p className="absolute bottom-3"> SNS</p>
         </div>
-        <div className="bg-white shadow-xl p-2 rounded-lg  flex flex-col justify-center items-center relative">
+        <div
+          onClick={() => navigate("/topic/5")}
+          className="bg-white shadow-xl p-2 rounded-lg  flex flex-col justify-center items-center relative"
+        >
           <img
             src={iam}
             className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200 "

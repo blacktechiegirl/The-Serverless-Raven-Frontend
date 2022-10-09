@@ -7,13 +7,11 @@ import { AiOutlineLike, AiOutlineRetweet } from "react-icons/ai";
 import { BsChatDotsFill, BsChatDots } from "react-icons/bs";
 import TextareaAutosize from "react-textarea-autosize";
 import CircularProgress from "./UI/CircularProgress";
-import lambda1 from "./assets/lambda1.svg";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
   faTrash,
-  faBars,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
@@ -32,9 +30,38 @@ const UserTweets = () => {
   const [deleteId, setDeleteId] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postLoader, setPostLoader] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [updateContent, setUpdateContent] = useState("");
+  const [updateId, setUpdateId] = useState("");
+  const [updateIndex, setUpdateIndex] = useState();
+  const [postContent, setPostContent] = useState("");
 
 
 
+  // Update a new Tweet
+  const updatePost = async (content) => {
+    setPostLoader(true);
+    const userData = {
+      content,
+    };
+    try {
+      const output = await accountpath.updatePost(updateId, userid, userData);
+      if (output) {
+        if (parseInt(output.status) === 200) {
+          setAllData([
+            ...allData.slice(0, updateIndex),
+            output.data.data,
+            ...allData.slice(updateIndex + 1),
+          ]);
+          setPostLoader(false);
+          ToastSuccess(output.data.message);
+          setShowModal(false);
+        }
+      }
+    } catch (err) {
+      ToastError(err);
+    }
+  };
 
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
@@ -50,40 +77,39 @@ const UserTweets = () => {
   const data = [
     {
       key: "Followers",
-      value: "12"
+      value: "12",
     },
     {
       key: "Following",
-      value: "22"
+      value: "22",
     },
     {
       key: "Posts",
-      value: allData.length
+      value: allData.length,
     },
     {
       key: "Communities",
-      value: "4"
+      value: "4",
     },
- 
   ];
 
   // Fetch All posts
   useEffect(() => {
     async function fetchData() {
       setPostLoading(true);
-    try {
-      const output = await accountpath.getPostById(userid);
-  
-      console.log(output);
-      if (output) {
-        if (parseInt(output.status) === 200) {
-          setAllData(output.data.data);
-          setPostLoading(false);
+      try {
+        const output = await accountpath.getPostById(userid);
+
+        console.log(output);
+        if (output) {
+          if (parseInt(output.status) === 200) {
+            setAllData(output.data.data);
+            setPostLoading(false);
+          }
         }
+      } catch (err) {
+        ToastError(err);
       }
-    } catch (err) {
-      ToastError(err);
-    }
     }
     fetchData();
   }, []);
@@ -133,8 +159,8 @@ const UserTweets = () => {
     }
   };
 
-   // Delete a Tweet
-   const deletePost = async () => {
+  // Delete a Tweet
+  const deletePost = async () => {
     setPostLoader(true);
 
     // console.log(deleteIndex);
@@ -155,14 +181,87 @@ const UserTweets = () => {
   };
 
   const handleModalState = (item, id, index) => {
-    // setShowModal(!showModal);
-    // setUpdateContent(item);
-    // setUpdateId(id);
-    // setUpdateIndex(index);
+    setShowModal(!showModal);
+    setUpdateContent(item);
+    setUpdateId(id);
+    setUpdateIndex(index);
   };
 
   return (
     <div>
+      {/* //Modal */}
+      {showModal ? (
+        <div
+          id="defaultModal"
+          tabindex="-1"
+          aria-hidden="true"
+          class="font-sora fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full mx-auto"
+        >
+          <div className="relative top-20 p-4 w-full max-w-2xl h-full md:h-auto mx-auto">
+            {/* <!-- Modal content --> */}
+            <div className="relative bg-white rounded-lg shadow ">
+              {/* <!-- Modal header --> */}
+              <div className="p-4 rounded-t border-b ">
+                <div className="flex">
+                  <h3 className="text-xl font-bold text-[#484c9c] text-center ">
+                    Update Your Tweet
+                  </h3>
+                  <button
+                    type="button"
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal"
+                    onClick={() => handleModalState()}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                    <span className="sr-only">Close modal</span>
+                  </button>
+                </div>
+
+                {/* <!-- Modal body --> */}
+                <div className="p-6 space-y-6">
+
+                  <p>Tweet something interesting !</p>
+                  <textarea
+                    defaultValue={updateContent}
+                    rows={6}
+                    className="w-[100%] border border-gray-400 rounded-md my-5 outline-none focus:border-2 focus:border-gray-400 p-4"
+                    onChange={(event) => setPostContent(event.target.value)}
+                  ></textarea>
+                </div>
+                {/* <!-- Modal footer --> */}
+                <div className="flex justify-end items-center p-6 rounded-b border-t border-gray-200 ">
+                  <button
+                    onClick={() => updatePost(postContent)}
+                    data-modal-toggle="defaultModal"
+                    type="button"
+                    className="w-[150px] text-white bg-[#353bc1] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    {postLoader ? (
+                      <div className="text-white relative py-2">
+                        <CircularProgress />
+                      </div>
+                    ) : (
+                      "Update Tweet"
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
       {showDeleteModal ? (
         <div
           class="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
@@ -220,9 +319,7 @@ const UserTweets = () => {
             {firstname + lastname}
           </div>
           <div className="flex justify-center  flex-col">
-            <h1 className="mx-16 mt-4 text-6xl font-montserrat">
-              {username}
-            </h1>
+            <h1 className="mx-16 mt-4 text-6xl font-montserrat">{username}</h1>
             <p className="mx-16 mt-4 text-2xl">
               {" "}
               I am a lover of the serverless community😍❤{" "}
@@ -230,27 +327,29 @@ const UserTweets = () => {
           </div>
         </div>
         <div className="grid grid-cols-4 ">
-            {data.map((item) => {
-              return (
+          {data.map((item) => {
+            return (
               <div className="h-36 cursor-pointer card font-sora bg-white p-4 mb-8 mr-6 text-center rounded-lg hover:bg-[#d8daef] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">
                 <p>{item.key}</p>
-                <p className="mt-4 text-4xl font-montserrat font-bold text-[#353bc1]">{item.value}</p>
-                </div>)
-            })}
-          </div>
-          {allData.length > 0 ? 
+                <p className="mt-4 text-4xl font-montserrat font-bold text-[#353bc1]">
+                  {item.value}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
         <div className=" flex">
           <div className="container w-[65%] overflow-auto h-[800px]">
             <div>
               {postLoading ? (
-                <div className="bg-white ml-10 mr-5 p-10">
+                <div className="bg-white mr-5 p-10">
                   {" "}
                   {skelArr.map((item) => (
                     <Skeleton />
                   ))}
                 </div>
-              ) : (
-
+              ) : allData.length > 0 ? (
                 allData.map((item, index) => {
                   return (
                     <div className=" bg-white hover:shadow-2xl   mt-0 mb-5 p-5 rounded-lg">
@@ -262,26 +361,26 @@ const UserTweets = () => {
                           <div className="flex justify-between">
                             <p className="font-bold ">{item.userName}</p>
                             <div className="flex justify-between">
-                                <FontAwesomeIcon
-                                  icon={faPen}
-                                  className="text-[#353bc1] mx-2 cursor-pointer"
-                                  onClick={() =>
-                                    handleModalState(
-                                      item.content,
-                                      item.postId,
-                                      index
-                                    )
-                                  }
-                                />
-                                <FontAwesomeIcon
-                                  icon={faTrash}
-                                  className="text-[#353bc1] mx-2 cursor-pointer"
-                                  onClick={() => {
-                                    setDeleteId(item.postId);
-                                    setShowDeleteModal(true);
-                                  }}
-                                />
-                              </div>
+                              <FontAwesomeIcon
+                                icon={faPen}
+                                className="text-[#353bc1] mx-2 cursor-pointer"
+                                onClick={() =>
+                                  handleModalState(
+                                    item.content,
+                                    item.postId,
+                                    index
+                                  )
+                                }
+                              />
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="text-[#353bc1] mx-2 cursor-pointer"
+                                onClick={() => {
+                                  setDeleteId(item.postId);
+                                  setShowDeleteModal(true);
+                                }}
+                              />
+                            </div>
                           </div>
                           <i className="text-sm">
                             {format(item.date, "en_US")}
@@ -317,7 +416,7 @@ const UserTweets = () => {
                     </div>
                   );
                 })
-              )}
+              ) : null}
             </div>
           </div>
           <div className="container w-[35%] ml-5 bg-white shadow-lg mb-5 h-[800px] p-5 rounded-l overflow-auto">
@@ -402,7 +501,7 @@ const UserTweets = () => {
               </div>
             )}
           </div>
-        </div>: null}
+        </div>
       </div>
       <ToastContainer />
     </div>

@@ -10,6 +10,11 @@ import CircularProgress from "./UI/CircularProgress";
 import lambda1 from "./assets/lambda1.svg";
 import Navbar from "./Navbar";
 import { useParams } from "react-router-dom";
+import iam from "./assets/IAM.svg";
+import stepfunction from "./assets/stepfunction.svg";
+import apigateway from "./assets/apigateway.svg";
+import dynamodb from "./assets/dynamodb.svg";
+import codepipeline from "./assets/codepipeline.svg";
 
 
 const NewTopic = () => {
@@ -48,12 +53,46 @@ const NewTopic = () => {
       key: "#Communities",
     },
   ];
+
+
+  const topics = [
+    {
+      imgurl: lambda1,
+      url: 'lambda',
+      heading: 'AWS lambda function'
+    },
+    {
+      imgurl: stepfunction,
+      url: 'stepfunctions',
+      heading: 'Step Functions'
+    },
+    {
+      imgurl: apigateway,
+      url: 'apigateway',
+      heading: 'Api Gateway'
+    },
+    {
+      imgurl: dynamodb,
+      url: 'dynamodb',
+      heading: 'Dynamodb'
+    },
+    {
+      imgurl: codepipeline,
+      url: 'sns',
+      heading: 'Simple Notification Service'
+    },
+    {
+      imgurl: iam,
+      url: 'appsync',
+      heading: 'AppSync'
+    },
+  ]
   // Fetch All posts
   useEffect(() => {
     async function fetchData() {
       setPostLoading(true);
       try {
-        const output = await accountpath.getTopic(topicid);
+        const output = await accountpath.getTopic(topics[topicid].url);
         if (output) {
           console.log(output)
           if (parseInt(output.status) === 200) {
@@ -119,10 +158,10 @@ const NewTopic = () => {
       <div className="container mx-auto sm:px-10 lg:px-20 font-sora">
         <div>
           <div className="flex  mt-16 mb-8">
-            <img src={lambda1} className="w-40 " />
+            <img src={topics[topicid].imgurl} className="w-40 " />
             <div className="flex justify-center  flex-col">
-            <h1 className="mx-16 mt-4 text-6xl font-montserrat">AWS LAMBDA FUNCTION</h1>
-            <p className="mx-16 my-4 text-2xl"> Find here the latest tweets, discussions and threads on AWS lambda function !</p>
+            <h1 className="mx-16 mt-4 text-6xl font-montserrat">{topics[topicid].heading.toUpperCase()}</h1>
+            <p className="mx-16 my-4 text-2xl"> Find here the latest tweets, discussions and threads on {topics[topicid].heading} !</p>
             </div>
           </div>
           <div className="grid grid-cols-6">
@@ -132,12 +171,12 @@ const NewTopic = () => {
             })}
           </div>
         </div>
-        <h3 className="my-6 text-3xl"> Latest Tweets on Lambda Function</h3>
+        <h3 className="my-6 text-3xl"> Latest Tweets on {topics[topicid].heading}</h3>
         <div className=" flex">
           <div className="container w-[65%] overflow-auto h-[800px]">
             <div>
               {postLoading ? (
-                <div className="bg-white ml-10 mr-5 p-10">
+                <div className="bg-white  mr-5 p-10">
                   {" "}
                   {skelArr.map((item) => (
                     <Skeleton />

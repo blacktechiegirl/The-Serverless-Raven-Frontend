@@ -12,11 +12,22 @@ import { ToastError, ToastSuccess } from "../UI/ToastTweet";
 import InputField from "../UI/InputField";
 import CircularProgress from "../UI/CircularProgress";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const passRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
+
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const validEmail = emailRegex.test(email);
+  const validPassword = passRegex.test(password);
+  console.log(validEmail);
+  console.log(validPassword);
 
   const handleClick = () => {
     navigate("/signup");
@@ -31,6 +42,8 @@ const Login = () => {
     Username: email,
     Password: password,
   });
+
+
 
   const loginUser = async (event) => {
     setLoading(true);
@@ -50,7 +63,6 @@ const Login = () => {
           for (let i = 0; i < result.length; i++) {
             localStorage.setItem("userId", result[0].getValue());
             localStorage.setItem("userName", result[2].getValue());
-
           }
         });
         ToastSuccess("You have signed up successfully");
@@ -64,15 +76,13 @@ const Login = () => {
 
   // bg-[#646be2] sm:bg-[red] md:bg-[green] lg:bg-[blue] xl:bg-[yellow] 2xl:bg-[gray]
   return (
-    <div className="grid lg:grid-cols-2 grid-cols-1 ">
+    <div className="grid lg:grid-cols-2 grid-cols-1  ">
       {/* Right hand pane of login page */}
       <div className="bg-[#646be2] flex justify-center items-center text-white flex-col h-96 lg:h-full">
         <h1 className="text-[40px] lg:text-[40px] md:text-[50px] xl:text-[50px] 2xl:text-[50px] font-montserrat font-bold text-center ">
           Hey Guys<br></br>Let's Tweet Serverless !
         </h1>
-        <p className="text-[40px] font-smooch">
-          welcome to www.serverlesstweet.com
-        </p>
+   
       </div>
 
       {/* Left hand pane of login page */}
@@ -109,7 +119,7 @@ const Login = () => {
               onChange={(event) => setPassword(event.target.value)}
               label="Password"
             />
-            
+
             {/* Forgot Password */}
             <div
               className="flex justify-end mt-3 text-['#949393'] cursor-pointer text-['13px']"
@@ -129,7 +139,7 @@ const Login = () => {
                   type="submit"
                   className="bg-[#353bc1] p-2 py-6 text-center text-white rounded-lg mt-12 relative w-full"
                 >
-                 <CircularProgress />
+                  <CircularProgress />
                 </button>
               </div>
             ) : (
