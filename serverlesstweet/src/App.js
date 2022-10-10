@@ -20,6 +20,8 @@ import Profile from "./Profile";
 import CircularProgress from "./UI/CircularProgress";
 import Skeleton from "./UI/Skeleton";
 import Select from "react-select";
+import Footbar from "./PostTweet";
+import PostTweet from "./PostTweet";
 
 const HomePage = () => {
   const username = localStorage.getItem("userName");
@@ -47,6 +49,12 @@ const HomePage = () => {
   const [updateIndex, setUpdateIndex] = useState();
   const [selectedOption, setSelectedOption] = useState();
   const [activeComments, setActiveComment] = useState();
+  const [newpost, setNewPost] = useState('')
+
+
+  const handleDataUpdate = (newpost) => {
+    setPostData([newpost, ...postData])
+  }
 
   const handleModalState = (item, id, index) => {
     setShowModal(!showModal);
@@ -632,6 +640,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)}/>
       <ToastContainer />
     </div>
   );
