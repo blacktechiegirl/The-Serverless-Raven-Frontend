@@ -15,14 +15,14 @@ const Profile = () => {
   }
 
   return (
-    <div className="container w-[20%] shadow-lg bg-white mb-5 h-[500px] p-5 rounded-lg relative grid grid-cols-1 divide-y ">
+    <div className="hidden sm:grid container w-[30%] shadow-lg bg-white mb-5 h-[500px] p-5 rounded-lg relative  grid-cols-1 divide-y ' ">
       <>
         <div className="flex justify-center items-center flex-col  ">
-          <p className="text-md p-4 m-4 mt-0 bg-[rgba(0,0,0,0.08)] text-[#353bc1] rounded-full font-bold h-12 w-12 flex justify-center items-center ">
+          <p className="text-[10px] sm:text-md p-4 m-4 mt-0 bg-[rgba(0,0,0,0.08)] text-[#353bc1] rounded-full font-bold h-12 w-12 flex justify-center items-center ">
             {firstname + lastname}
           </p>
-          <p className="font-bold text-md">{username} </p>
-          <div className="text-center mt-4">
+          <p className="font-bold sm:text-md">{username} </p>
+          <div className="text-sm text-center mt-4">
             I am a lover of the serverless community😍❤{" "}
           </div>
         </div>

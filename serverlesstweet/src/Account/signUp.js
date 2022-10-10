@@ -92,7 +92,7 @@ const SignUp = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 ">
       {/* Right hand pane of login page */}
-      <div className="bg-[#646be2] flex justify-center items-center text-white flex-col h-96 lg:h-full">
+      <div className="hidden sm:flex bg-[#646be2] justify-center items-center text-white flex-col h-96 lg:h-full">
         <h1 className="text-[40px] lg:text-[40px] md:text-[50px] xl:text-[50px] 2xl:text-[50px] font-montserrat font-bold text-center ">
           Hey Guys<br></br>Let's Tweet Serverless !
         </h1>

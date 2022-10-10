@@ -78,8 +78,8 @@ const Login = () => {
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1  ">
       {/* Right hand pane of login page */}
-      <div className="bg-[#646be2] flex justify-center items-center text-white flex-col h-96 lg:h-full">
-        <h1 className="text-[40px] lg:text-[40px] md:text-[50px] xl:text-[50px] 2xl:text-[50px] font-montserrat font-bold text-center ">
+      <div className="hidden sm:flex bg-[#646be2]  justify-center items-center text-white flex-col h-96 lg:h-full">
+        <h1 className="text-[30px] sm:text-[40px] lg:text-[40px] md:text-[50px] xl:text-[50px] 2xl:text-[50px] font-montserrat font-bold text-center ">
           Hey Guys<br></br>Let's Tweet Serverless !
         </h1>
    
@@ -88,9 +88,9 @@ const Login = () => {
       {/* Left hand pane of login page */}
       <div className="flex justify-center items-center h-[100vh] bg-[rgb(0,0,0,0.04)] font-sora">
         {/* Login Form */}
-        <div className=" bg-white  p-[70px] rounded-lg">
+        <div className=" bg-white  p-[30px] sm:p-[70px] rounded-lg ">
           <form onSubmit={loginUser}>
-            <h4 className="mb-3 text-center text-2xl">
+            <h4 className="mb-3 text-center text-2xl px-[50px] py-5 sm:p-0">
               Welcome to Serverless Tweets
             </h4>
             <p className="text-center mb-5">

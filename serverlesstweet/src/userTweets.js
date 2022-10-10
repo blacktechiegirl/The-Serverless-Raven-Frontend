@@ -35,6 +35,8 @@ const UserTweets = () => {
   const [updateId, setUpdateId] = useState("");
   const [updateIndex, setUpdateIndex] = useState();
   const [postContent, setPostContent] = useState("");
+  const [activeComments, setActiveComment] = useState();
+
 
 
 
@@ -116,6 +118,7 @@ const UserTweets = () => {
 
   // View Comments
   const viewComments = async (postid) => {
+    setActiveComment(true);
     setPostCommentId(postid);
     try {
       setCommentLoading(true);
@@ -268,7 +271,7 @@ const UserTweets = () => {
           id="my-modal"
         >
           {" "}
-          <div class="relative top-20 mx-auto p-5 border w-[500px] shadow-lg rounded-md bg-white">
+          <div class="relative top-20 mx-auto p-5 border   sm:w-[500px] shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
               <div class="mx-auto flex items-center justify-center">
                 <FontAwesomeIcon
@@ -313,25 +316,25 @@ const UserTweets = () => {
         </div>
       ) : null}
       <Navbar />
-      <div className="container mx-auto sm:px-10 lg:px-20 font-sora">
-        <div className="flex">
-          <div className="border border-2 border-[#353bc1] bg-white h-44 my-14 rounded-full w-44 flex justify-center items-center text-5xl text-[#353bc1] font-bold ">
+      <div className="container  sm:px-10 lg:px-20 font-sora">
+        <div className="flex mx-3 my-8">
+          <div className=" border-2 border-[#353bc1] bg-white h-20 w-24 sm:h-44 sm:w-44 mt-5 sm:my-14 rounded-full flex justify-center items-center text-2xl sm:text-5xl text-[#353bc1] font-bold ">
             {firstname + lastname}
           </div>
           <div className="flex justify-center  flex-col">
-            <h1 className="mx-16 mt-4 text-6xl font-montserrat">{username}</h1>
-            <p className="mx-16 mt-4 text-2xl">
+            <h1 className="mx-8 sm:mx-16 mt-4 text-3xl sm:text-6xl font-montserrat">{username}</h1>
+            <p className="mx-8 sm:mx-16 mt-4 text-sm sm:text-2xl">
               {" "}
               I am a lover of the serverless community😍❤{" "}
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-4 ">
+        <div className="grid grid-cols-2 sm:grid-cols-4 ">
           {data.map((item) => {
             return (
-              <div className="h-36 cursor-pointer card font-sora bg-white p-4 mb-8 mr-6 text-center rounded-lg hover:bg-[#d8daef] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">
+              <div className="mx-3 text-sm sm:text-md sm:h-36 cursor-pointer card font-sora  bg-white p-2  sm:p-4 mb-4 sm:mb-8 sm:mr-6 text-center rounded-lg hover:bg-[#d8daef] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">
                 <p>{item.key}</p>
-                <p className="mt-4 text-4xl font-montserrat font-bold text-[#353bc1]">
+                <p className="mt-2 m:mt-4 text-2xl sm:text-4xl font-montserrat font-bold text-[#353bc1]">
                   {item.value}
                 </p>
               </div>
@@ -339,8 +342,8 @@ const UserTweets = () => {
           })}
         </div>
 
-        <div className=" flex">
-          <div className="container w-[65%] overflow-auto h-[800px]">
+        <div className=" flex mx-3 sm:mx-0">
+        <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white mr-5 p-10">
@@ -352,12 +355,12 @@ const UserTweets = () => {
               ) : allData.length > 0 ? (
                 allData.map((item, index) => {
                   return (
-                    <div className=" bg-white hover:shadow-2xl   mt-0 mb-5 p-5 rounded-lg">
-                      <div className="grid grid-cols-9">
-                        <p className="grid col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
+                    <div className=" bg-white hover:shadow-2xl   sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
+                      <div className="grid grid-cols-11 sm:grid-cols-9 mb-5">
+                      <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}
                         </p>
-                        <div className="relative col-span-8">
+                        <div className="relative col-span-9">
                           <div className="flex justify-between">
                             <p className="font-bold ">{item.userName}</p>
                             <div className="flex justify-between">
@@ -389,7 +392,7 @@ const UserTweets = () => {
                             <p className="my-3 text-sm">{item.content}</p>
                           </div>
                           <div className="flex justify-end ">
-                            <div className="w-[40%] flex justify-between">
+                            <div className="w-[100%] sm:w-[40%] flex justify-between">
                               <button className="bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center ">
                                 <AiOutlineLike className="text-[#353bc1] " />
                                 <p></p>
@@ -413,13 +416,83 @@ const UserTweets = () => {
                           </div>
                         </div>
                       </div>
+                      {postCommentId === item.postId && activeComments ? (
+              <div className="p-5 grid grid-cols-1 0">
+                <div>
+                  <p className="font-sora font-semibold">
+                    Hey {username.split(" ")[0]}, No comment yet ?
+                  </p>
+                  <div className="flex relative">
+                    <p className="= top-3 left-4 grid col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center mr-3 my-4 ">
+                      {username[0]}
+                    </p>
+                    <TextareaAutosize
+                      value={commentContent}
+                      onChange={(e) => setCommentContent(e.target.value)}
+                      placeholder={"Drop a comment"}
+                      className="d-flex border-2 border-gray-300 rounded-3xl  w-full  focus:outline-none focus:border-[#353bc1] my-4 p-2 "
+                    />
+                  </div>
+                  {commentContent.length > 0 ? (
+                    commentLoader ? (
+                      <div className="text-white relative py-2">
+                        <CircularProgress />
+                      </div>
+                    ) : (
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => postComment()}
+                          className="bg-[#353bc1] px-4 py-1 mb-2 text-white text-[10px]  rounded-md "
+                        >
+                          Drop it
+                        </button>
+                      </div>
+                    )
+                  ) : null}
+                </div>
+                <div>
+                  {commnetLoading ? (
+                    skelArr.map((item) => {
+                      return <Skeleton />;
+                    })
+                  ) : commentData.length === 0 ? (
+                    <div className="text-center mt-12">
+                      <p className="text-2xl font-bold ">oops 😏 !</p>
+                      <p className="text-lg">No one has dropped a comment</p>
+                    </div>
+                  ) : (
+                    commentData.map((item) => {
+                      return (
+                        <div className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
+                          <p className=" col-span-1 w-[40px] h-[40px] flex justify-center items-center text-md p-4 mr-4 bg-white text-[#353bc1] rounded-full font-bold">
+                            {item.userName[0]}
+                          </p>
+                          <div className="col-span-7 ml-3">
+                            <p className="font-bold mt-2 mb-2">
+                              {item.userName}
+                            </p>
+                            <p className="text-sm mb-3">{item.comment}</p>
+                            <div className="flex justify-end">
+                              <button className="bg-white px-5 py-2 rounded-md text-sm flex justify-between items-center ">
+                                <AiOutlineLike className="text-[#353bc1] " />
+                                <p></p>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            ) : null}
                     </div>
                   );
                 })
               ) : null}
             </div>
           </div>
-          <div className="container w-[35%] ml-5 bg-white shadow-lg mb-5 h-[800px] p-5 rounded-l overflow-auto">
+          <div className=" hidden sm:block container w-[30%] ml-5 bg-white shadow-lg mb-5 h-[800px] p-5 rounded-l overflow-auto">
             {postCommentId ? (
               <div className=" grid grid-cols-1 0">
                 <div>

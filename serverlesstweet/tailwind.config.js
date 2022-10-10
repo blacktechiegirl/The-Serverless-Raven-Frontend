@@ -14,5 +14,9 @@ module.exports = {
       montserrat: ["montserrat"],
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide'),
+    require('tailwind-scroll-behavior')()
+
+  ],
 };
