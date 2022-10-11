@@ -20,17 +20,11 @@ const NewTopic = () => {
   const [allData, setAllData] = useState([]);
   const [postLoading, setPostLoading] = useState([]);
   const accountpath = new AccountService();
-  const [commentData, setCommentData] = useState([]);
-  const [commentContent, setCommentContent] = useState("");
   const [postCommentId, setPostCommentId] = useState("");
   const [activeComments, setActiveComment] = useState();
 
   const { topicid } = useParams();
-  const username = localStorage.getItem("userName");
-  const userid = localStorage.getItem("userId");
   const skelArr = [1, 2, 3, 4];
-
-
   const data = [
     {
       key: "#Documents",
@@ -83,11 +77,42 @@ const NewTopic = () => {
       url: "appsync",
       heading: "AppSync",
     },
+    {
+      imgurl: stepfunction,
+      heading: "s3",
+      url: "s3",
+    },
+    {
+      imgurl: dynamodb,
+      url: "kinesis",
+      heading: "Amazon Kinesis",
+    },
+    {
+      imgurl: codepipeline,
+      url: "aurora",
+      heading: "Amazon Aurora",
+    },
+    {
+      imgurl: iam,
+      url: "fargate",
+      heading: "AWS fargate",
+    },
+    {
+      imgurl: apigateway,
+      url: "eventbridge",
+      heading: "Event Bridge",
+    },
+    {
+      imgurl: lambda1,
+      url: "athena",
+      heading: "Amazon Athena",
+    },
   ];
 
   const handleDataUpdate = (newpost) => {
     return null;
   };
+
   // Fetch All posts
   useEffect(() => {
     async function fetchData() {
@@ -148,7 +173,7 @@ const NewTopic = () => {
                   ))}
                 </div>
               ) : (
-                allData.map((item, index) => {
+                allData.map((item) => {
                   return (
                     <div className="  bg-white hover:shadow-2xl mx-5  sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9">

@@ -268,22 +268,22 @@ const UserTweets = () => {
         </div>
       ) : null}
       <Navbar handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
-      <div className="container  sm:px-10 lg:px-20 font-sora">
+      <div className="2xl:container mx-auto sm:px-10 lg:px-20 font-sora">
         <div className="flex mx-3 my-8">
-          <div className=" border-2 border-[#353bc1] bg-white h-20 w-24 sm:h-44 sm:w-44 mt-5 sm:my-14 rounded-full flex justify-center items-center text-2xl sm:text-5xl text-[#353bc1] font-bold ">
+          <div className=" border-2 border-[#353bc1] bg-white h-[80px] w-[100px] sm:h-[150px] sm:w-[230px] md:w-44 md: h-44mt-5 sm:my-14 rounded-full flex justify-center items-center text-2xl sm:text-5xl text-[#353bc1] font-bold ">
             {firstname + lastname}
           </div>
           <div className="flex justify-center  flex-col">
-            <h1 className="mx-8 sm:mx-16 mt-4 text-3xl sm:text-6xl font-montserrat">
+            <h1 className="mx-8 md:mx-16 mt-4 text-3xl sm:text-4xl md:text-6xl font-montserrat">
               {username}
             </h1>
-            <p className="mx-8 sm:mx-16 mt-4 text-sm sm:text-2xl">
+            <p className="mx-8 md:mx-16 mt-4 text-sm sm:text-2xl">
               {" "}
               I am a lover of the serverless community😍❤{" "}
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 ">
+        <div className="grid grid-cols-2 md:grid-cols-4 ">
           {data.map((item) => {
             return (
               <div className="mx-3 text-sm sm:text-md sm:h-36 cursor-pointer card font-sora  bg-white p-2  sm:p-4 mb-4 sm:mb-8 sm:mr-6 text-center rounded-lg hover:bg-[#d8daef] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">
@@ -297,7 +297,7 @@ const UserTweets = () => {
         </div>
 
         <div className=" flex mx-3 sm:mx-0">
-          <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
+        <div className=" xl:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white mr-5 p-10">
@@ -309,7 +309,7 @@ const UserTweets = () => {
               ) : allData.length > 0 ? (
                 allData.map((item, index) => {
                   return (
-                    <div className=" bg-white hover:shadow-2xl   sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
+                    <div className=" bg-white hover:shadow-2xl  lg:mx-0 lg:ml-10   mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9 mb-5">
                         <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}

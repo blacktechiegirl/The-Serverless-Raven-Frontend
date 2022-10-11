@@ -8,11 +8,6 @@ import stepfunction from "./assets/stepfunction.svg";
 import apigateway from "./assets/apigateway.svg";
 import dynamodb from "./assets/dynamodb.svg";
 import codepipeline from "./assets/codepipeline.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-} from "@fortawesome/free-solid-svg-icons";
 
 const Topics = () => {
   const navigate = useNavigate();
@@ -23,43 +18,63 @@ const Topics = () => {
   const data = [
     {
       imgurl: lambda1,
-      url: "lambda",
-      heading: "AWS lambda function",
+      heading: "lambda",
+      url: "/topic/0 ",
     },
     {
       imgurl: stepfunction,
-      url: "stepfunctions",
-      heading: "Step Functions",
+      heading: "stepfunctions",
+      url: "/topic/1",
     },
     {
       imgurl: apigateway,
-      url: "apigateway",
-      heading: "Api Gateway",
+      heading: "apigateway",
+      url: "/topic/2",
     },
     {
       imgurl: dynamodb,
-      url: "dynamodb",
-      heading: "Dynamodb",
+      heading: "dynamodb",
+      url: "/topic/3",
+    },
+    {
+      imgurl: codepipeline,
+      heading: "sns",
+      url: "/topic/4",
+    },
+    {
+      imgurl: iam,
+      heading: "appsync",
+      url: "/topic/5",
+    },
+    {
+      imgurl: stepfunction,
+      heading: "s3",
+      url: "/topic/6",
+    },
+    {
+      imgurl: dynamodb,
+      heading: "kinesis",
+      url: "/topic/7",
+    },
+    {
+      imgurl: codepipeline,
+      heading: "aurora",
+      url: "/topic/8",
+    },
+    {
+      imgurl: iam,
+      heading: "fargate",
+      url: "/topic/9",
+    },
+    {
+      imgurl: apigateway,
+      heading: "eventbridge",
+      url: "/topic/10",
     },
     {
       imgurl: lambda1,
-      url: "lambda",
-      heading: "AWS lambda function",
-    },
-    {
-      imgurl: stepfunction,
-      url: "stepfunctions",
-      heading: "Step Functions",
-    },
-    {
-      imgurl: apigateway,
-      url: "apigateway",
-      heading: "Api Gateway",
-    },
-    {
-      imgurl: dynamodb,
-      url: "dynamodb",
-      heading: "Dynamodb",
+      heading: "athena",
+      url: "/topic/11",
     },
   ];
 
@@ -70,91 +85,78 @@ const Topics = () => {
       setShowLeft(false);
     }
 
-    if (storiesRef.current.scrollLeft =
-      storiesRef.current.scrollWidth - storiesRef.current.clientWidth){
-        setShowRight(true)
-      }else{
-        setShowRight(false)
-      }
+    if (
+      (storiesRef.current.scrollLeft =
+        storiesRef.current.scrollWidth - storiesRef.current.clientWidth)
+    ) {
+      setShowRight(true);
+    } else {
+      setShowRight(false);
+    }
   };
 
   return (
+    <div>
+      <div
+        id="default-carousel"
+        class="relative m-5 md:hidden"
+        data-carousel="static"
+      >
+        <p className="mb-5   text-xl font-bold  text-[#353bc1]">
+          Get started with serverless Topics
+        </p>
+        <div className=" flex md:grid-cols-4 pt-4 mb-10 cursor-pointer text-sm overflow-x-auto scrollbar-hide ">
+          {data.map((item) => {
+            return (
+              <div
+                onClick={() => navigate(item.url)}
+                className="min-w-[130px]  rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
+              >
+                <img
+                  src={item.imgurl}
+                  className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
+                />
+                <p className="absolute bottom-3"> {item.heading}</p>
+              </div>
+            );
+          })}
+        </div>
+        <button type="button" class="absolute top-5 right-[-30px] z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            <span class="sr-only">Next</span>
+        </span>
+    </button>
+      </div>
 
- <div> 
-<div id="default-carousel" class="relative m-5 md:hidden" data-carousel="static">
-<p className="mb-5 text-xl font-bold  text-[#353bc1]">
-        Get started with serverless Topics
-      </p>
-    {/* <!-- Carousel wrapper --> */}
-    <div className=" flex md:grid-cols-4 pt-4 mb-10 cursor-pointer text-sm overflow-x-auto scrollbar-hide bg-white">
-        <div
-          onClick={() => navigate("/topic/0")}
-          className="min-w-[130px]  rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
-        >
-          <img
-            src={lambda1}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Lambda</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/1")}
-          className="min-w-[130px]   rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={stepfunction}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Step Function</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/2")}
-          className="min-w-[130px]  rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={apigateway}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Api Gateway</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/3")}
-          className="min-w-[130px]  rounded-lg flex flex-col justify-center items-center relative"
-        >
-          <img
-            src={dynamodb}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Dynamodb</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/4")}
-          className="min-w-[130px]  rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={codepipeline}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> SNS</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/5")}
-          className="min-w-[130px]  rounded-lg  flex flex-col justify-center items-center relative"
-        >
-          <img
-            src={iam}
-            className=" w-20 hover:w-20 absolute top-1 ease-in duration-200 "
-          />
-          <p className="absolute bottom-3"> AppSync</p>
+      <div class=" hidden md:block ">
+        <p className="mt-10 mb-5 text-xl font-bold  text-[#353bc1]">
+          Get started with serverless Topics
+        </p>
+        <div className=" flex md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm overflow-x-auto scrollbar-hide">
+          {data.map((item) => {
+            return (
+              <div
+                onClick={() => navigate(item.url)}
+                className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
+              >
+                {" "}
+                <img
+                  src={item.imgurl}
+                  className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+                />
+                <p className="absolute bottom-3"> {item.heading}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-</div>
 
-    <div className="hidden md:block">
-      <p className="mt-10 mb-5 text-xl font-bold  text-[#353bc1]">
-        Get started with serverless Topics
-      </p>
-      {/* <div className="relative  bg-white">
+      {/* <div className="hidden md:block">
+        <p className="mt-10 mb-5 text-xl font-bold  text-[#353bc1]">
+          Get started with serverless Topics
+        </p> */}
+        {/* <div className="relative  bg-white">
         <div
    
           className="flex  snap-x snap-mandatory flex-nowrap space-x-4 my-5 overflow-x-auto max-w-sm p-4 scroll-smooth "
@@ -197,70 +199,70 @@ const Topics = () => {
         </div>
       </div> */}
 
-      <div className=" flex md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm overflow-x-auto scrollbar-hide">
-        <div
-          onClick={() => navigate("/topic/0")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
-        >
-          <img
-            src={lambda1}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Lambda</p>
+        {/* <div className=" flex md:grid-cols-4 gap-10 mb-10 cursor-pointer text-sm overflow-x-auto scrollbar-hide">
+          <div
+            onClick={() => navigate("/topic/0")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center hover:shadow-2xl relative h-32 "
+          >
+            <img
+              src={lambda1}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+            />
+            <p className="absolute bottom-3"> Lambda</p>
+          </div>
+          <div
+            onClick={() => navigate("/topic/1")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+          >
+            <img
+              src={stepfunction}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+            />
+            <p className="absolute bottom-3"> Step Function</p>
+          </div>
+          <div
+            onClick={() => navigate("/topic/2")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+          >
+            <img
+              src={apigateway}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+            />
+            <p className="absolute bottom-3"> Api Gateway</p>
+          </div>
+          <div
+            onClick={() => navigate("/topic/3")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative"
+          >
+            <img
+              src={dynamodb}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+            />
+            <p className="absolute bottom-3"> Dynamodb</p>
+          </div>
+          <div
+            onClick={() => navigate("/topic/4")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
+          >
+            <img
+              src={codepipeline}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
+            />
+            <p className="absolute bottom-3"> SNS</p>
+          </div>
+          <div
+            onClick={() => navigate("/topic/5")}
+            className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg  flex flex-col justify-center items-center relative"
+          >
+            <img
+              src={iam}
+              className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200 "
+            />
+            <p className="absolute bottom-3"> AppSync</p>
+          </div>
         </div>
-        <div
-          onClick={() => navigate("/topic/1")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={stepfunction}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Step Function</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/2")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={apigateway}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Api Gateway</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/3")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative"
-        >
-          <img
-            src={dynamodb}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> Dynamodb</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/4")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg flex flex-col justify-center items-center relative "
-        >
-          <img
-            src={codepipeline}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200"
-          />
-          <p className="absolute bottom-3"> SNS</p>
-        </div>
-        <div
-          onClick={() => navigate("/topic/5")}
-          className="bg-white min-w-[250px] shadow-xl p-2 rounded-lg  flex flex-col justify-center items-center relative"
-        >
-          <img
-            src={iam}
-            className="m-3 w-16 hover:w-20 absolute top-1 ease-in duration-200 "
-          />
-          <p className="absolute bottom-3"> AppSync</p>
-        </div>
-      </div>
+      </div> */}
     </div>
-    </div>  
   );
 };
 

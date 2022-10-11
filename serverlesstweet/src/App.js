@@ -50,14 +50,15 @@ const HomePage = () => {
     <div className=" w-full font-montserrat text-sm">
       <Navbar handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
 
-      <div className="container mx-auto sm:px-10 lg:px-20">
+      <div className="2xl:container mx-auto  md:px-10 lg:px-20">
         {/* <p className="my-5 text-3xl font-bold text-gray-600">Hey {username.split(' ')[0]},</p> */}
         <Topics />
-        <div className="flex ">
-          <p className="hidden md:block mb-3 font-bold font-sora w-[30%] ml-2 text-[#353bc1]">
+        <div className="mx-5 md:mx-0 2xl:mx-0">
+        <div className="flex">
+          <p className="hidden lg:block mb-3 font-bold font-sora w-[30%] ml-2 text-[#353bc1]">
             Profile
           </p>
-          <p className=" mb-3 font-bold font-sora w-[50%] ml-8 text-[#353bc1]">
+          <p className=" mb-3 font-bold font-sora w-[50%]  lg:ml-8 text-[#353bc1]">
             Latest Serverless Trends
           </p>
           <p className="hidden mb-3 font-bold font-sora w-[30%] ml-8 text-[#353bc1]">
@@ -66,7 +67,7 @@ const HomePage = () => {
         </div>
         <div className=" flex">
           <Profile />
-          <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
+          <div className=" xl:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white ml-10 mr-5 p-10">
@@ -78,7 +79,7 @@ const HomePage = () => {
               ) : (
                 postData.map((item, index) => {
                   return (
-                    <div className=" bg-white hover:shadow-2xl  mx-5 sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
+                    <div className=" bg-white hover:shadow-2xl  lg:mx-0 lg:ml-10   mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9">
                         <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}
@@ -130,6 +131,7 @@ const HomePage = () => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
       <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />

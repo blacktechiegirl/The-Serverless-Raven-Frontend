@@ -8,8 +8,6 @@ const Navbar = ({ handleDataUpdate }) => {
   const navigate = useNavigate();
 
   const username = localStorage.getItem("userName");
-  const userid = localStorage.getItem("userId");
-
   const firstname = username.split(" ")[0][0];
   let lastname;
   {
@@ -36,7 +34,7 @@ const Navbar = ({ handleDataUpdate }) => {
           <VscBell className="text-[30px] mx-5 mt-1 font-medium  text-[#353bc1]" />
         
       </div>
-      <div className="hidden sm:flex container mx-auto py-4 sm:px-10 lg:px-20 text-2xl    justify-between ">
+      <div className="hidden sm:flex container mx-auto py-4 sm:px-5 md:px-10 lg:px-20 text-2xl justify-between ">
         <h1
           className="font-smooch text-3xl text-[#353bc1] cursor-pointer"
           onClick={() => navigate("/home")}
