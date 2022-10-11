@@ -87,6 +87,10 @@ const NewTopic = () => {
       heading: 'AppSync'
     },
   ]
+
+  const handleDataUpdate = (newpost) => {
+   return null
+  }
   // Fetch All posts
   useEffect(() => {
     async function fetchData() {
@@ -154,7 +158,8 @@ const NewTopic = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar   handleDataUpdate={(newpost) => handleDataUpdate(newpost)}
+ />
       <div className="container sm:px-10 lg:px-20 font-sora">
         <div className="ml-5">
           <div className="flex  my-8 sm:mt-16 mb-8">

@@ -1,8 +1,10 @@
 import React from "react";
 import { VscBell } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
+import PostTweet from "./PostTweet";
 
-const Navbar = ({ modalFunction, navbarFunction }) => {
+
+const Navbar = ({ handleDataUpdate }) => {
   const navigate = useNavigate();
 
   const username = localStorage.getItem("userName");
@@ -34,25 +36,24 @@ const Navbar = ({ modalFunction, navbarFunction }) => {
           <VscBell className="text-[30px] mx-5 mt-1 font-medium  text-[#353bc1]" />
         
       </div>
-      <div className="hidden sm:flex container mx-auto py-4 sm:px-10 lg:px-20 text-2xl text-[#353bc1]   justify-between ">
+      <div className="hidden sm:flex container mx-auto py-4 sm:px-10 lg:px-20 text-2xl    justify-between ">
         <h1
-          className="font-smooch text-3xl cursor-pointer"
+          className="font-smooch text-3xl text-[#353bc1] cursor-pointer"
           onClick={() => navigate("/home")}
         >
           Serverless Tweet
         </h1>
         <ul className="flex justify-between items-center">
           <li
-            className=" text-sm mx-2 text-[#353bc1] cursor-pointer hover:font-bold "
+            className=" text-sm mx-2 text-[#353bc1] cursor-pointer "
             onClick={() => navigate("/home")}
           >
             Home
           </li>
           <li
-            className=" text-sm mx-2 text-[#353bc1] cursor-pointer hover:font-bold "
-            onClick={modalFunction}
+            className="relative  text-sm mx-2  cursor-pointer "
           >
-            Post Tweet
+            <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)}/>
           </li>
           <li
             className=" text-sm mx-2 text-[#353bc1] cursor-pointer hover:font-bold "
@@ -61,7 +62,7 @@ const Navbar = ({ modalFunction, navbarFunction }) => {
             My Tweet
           </li>
           <li className="w-[100px">
-            <VscBell className="text-[30px] mx-5 mt-1 font-medium" />
+            <VscBell className="text-[30px] mx-5 mt-1 font-medium text-[#353bc1]" />
           </li>
           <li className="text-sm p-2 bg-[#353bc1] text-white rounded-full bold h-9 w-9 flex justify-center items-center ">
             {firstname + lastname}

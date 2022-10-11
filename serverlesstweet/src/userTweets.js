@@ -15,6 +15,8 @@ import {
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
+import PostTweet from "./PostTweet";
+import Comments from "./Comments";
 
 
 const UserTweets = () => {
@@ -37,8 +39,9 @@ const UserTweets = () => {
   const [postContent, setPostContent] = useState("");
   const [activeComments, setActiveComment] = useState();
 
-
-
+  const handleDataUpdate = (newpost) => {
+    setAllData([newpost, ...allData]);
+  };
 
   // Update a new Tweet
   const updatePost = async (content) => {
@@ -234,7 +237,6 @@ const UserTweets = () => {
 
                 {/* <!-- Modal body --> */}
                 <div className="p-6 space-y-6">
-
                   <p>Tweet something interesting !</p>
                   <textarea
                     defaultValue={updateContent}
@@ -315,14 +317,16 @@ const UserTweets = () => {
           </div>
         </div>
       ) : null}
-      <Navbar />
+      <Navbar handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
       <div className="container  sm:px-10 lg:px-20 font-sora">
         <div className="flex mx-3 my-8">
           <div className=" border-2 border-[#353bc1] bg-white h-20 w-24 sm:h-44 sm:w-44 mt-5 sm:my-14 rounded-full flex justify-center items-center text-2xl sm:text-5xl text-[#353bc1] font-bold ">
             {firstname + lastname}
           </div>
           <div className="flex justify-center  flex-col">
-            <h1 className="mx-8 sm:mx-16 mt-4 text-3xl sm:text-6xl font-montserrat">{username}</h1>
+            <h1 className="mx-8 sm:mx-16 mt-4 text-3xl sm:text-6xl font-montserrat">
+              {username}
+            </h1>
             <p className="mx-8 sm:mx-16 mt-4 text-sm sm:text-2xl">
               {" "}
               I am a lover of the serverless community😍❤{" "}
@@ -343,7 +347,7 @@ const UserTweets = () => {
         </div>
 
         <div className=" flex mx-3 sm:mx-0">
-        <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
+          <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white mr-5 p-10">
@@ -357,7 +361,7 @@ const UserTweets = () => {
                   return (
                     <div className=" bg-white hover:shadow-2xl   sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9 mb-5">
-                      <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
+                        <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}
                         </p>
                         <div className="relative col-span-9">
@@ -402,7 +406,10 @@ const UserTweets = () => {
                                 <p></p>
                               </button>
                               <button
-                                onClick={() => viewComments(item.postId)}
+                                onClick={() => {
+                                  setActiveComment(true);
+                                  setPostCommentId(item.postId);
+                                }}
                                 className={
                                   postCommentId !== item.postId
                                     ? "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center "
@@ -417,75 +424,8 @@ const UserTweets = () => {
                         </div>
                       </div>
                       {postCommentId === item.postId && activeComments ? (
-              <div className="p-5 grid grid-cols-1 0">
-                <div>
-                  <p className="font-sora font-semibold">
-                    Hey {username.split(" ")[0]}, No comment yet ?
-                  </p>
-                  <div className="flex relative">
-                    <p className="= top-3 left-4 grid col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center mr-3 my-4 ">
-                      {username[0]}
-                    </p>
-                    <TextareaAutosize
-                      value={commentContent}
-                      onChange={(e) => setCommentContent(e.target.value)}
-                      placeholder={"Drop a comment"}
-                      className="d-flex border-2 border-gray-300 rounded-3xl  w-full  focus:outline-none focus:border-[#353bc1] my-4 p-2 "
-                    />
-                  </div>
-                  {commentContent.length > 0 ? (
-                    commentLoader ? (
-                      <div className="text-white relative py-2">
-                        <CircularProgress />
-                      </div>
-                    ) : (
-                      <div className="flex justify-end">
-                        <button
-                          onClick={() => postComment()}
-                          className="bg-[#353bc1] px-4 py-1 mb-2 text-white text-[10px]  rounded-md "
-                        >
-                          Drop it
-                        </button>
-                      </div>
-                    )
-                  ) : null}
-                </div>
-                <div>
-                  {commnetLoading ? (
-                    skelArr.map((item) => {
-                      return <Skeleton />;
-                    })
-                  ) : commentData.length === 0 ? (
-                    <div className="text-center mt-12">
-                      <p className="text-2xl font-bold ">oops 😏 !</p>
-                      <p className="text-lg">No one has dropped a comment</p>
-                    </div>
-                  ) : (
-                    commentData.map((item) => {
-                      return (
-                        <div className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
-                          <p className=" col-span-1 w-[40px] h-[40px] flex justify-center items-center text-md p-4 mr-4 bg-white text-[#353bc1] rounded-full font-bold">
-                            {item.userName[0]}
-                          </p>
-                          <div className="col-span-7 ml-3">
-                            <p className="font-bold mt-2 mb-2">
-                              {item.userName}
-                            </p>
-                            <p className="text-sm mb-3">{item.comment}</p>
-                            <div className="flex justify-end">
-                              <button className="bg-white px-5 py-2 rounded-md text-sm flex justify-between items-center ">
-                                <AiOutlineLike className="text-[#353bc1] " />
-                                <p></p>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            ) : null}
+                        <Comments commentId={postCommentId} />
+                      ) : null}
                     </div>
                   );
                 })
@@ -575,7 +515,8 @@ const UserTweets = () => {
             )}
           </div>
         </div>
-      </div>
+      </div>{" "}
+      <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
       <ToastContainer />
     </div>
   );

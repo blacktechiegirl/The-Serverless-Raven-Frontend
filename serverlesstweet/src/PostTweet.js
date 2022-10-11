@@ -71,13 +71,16 @@ const PostTweet = ({ handleDataUpdate }) => {
 
   return (
     <div>
-      <div className=" sm:hidden  fixed bottom-0 right-0 p-2 px-5">
+      <div className="fixed sm:hidden bottom-0 right-0 p-2 px-5 cursor-pointer">
         <div
           className="h-12 w-12 rounded-full bg-[#353bc1] flex justify-center items-center "
           onClick={() => handleModalState()}
         >
           <RiAddFill className="text-white text-3xl ring-3 ring-[#9296e9] " />
         </div>
+      </div>
+      <div className="hidden sm:block hover:font-bold text-[#353bc1]" onClick={() => handleModalState()}>
+        <p>Post Tweet</p>
       </div>
 
       {/* //Modal */}
@@ -93,7 +96,7 @@ const PostTweet = ({ handleDataUpdate }) => {
               <div className="p-4 rounded-t border-b ">
                 <div className="flex">
                   <h3 className="text-xl font-bold text-[#484c9c] text-center ">
-                    "Post A Serverless Tweet ✨"
+                    Post A Serverless Tweet ✨
                   </h3>
                   <button
                     type="button"

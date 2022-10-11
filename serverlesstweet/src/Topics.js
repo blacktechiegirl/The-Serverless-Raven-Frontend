@@ -81,7 +81,7 @@ const Topics = () => {
   return (
 
  <div> 
-<div id="default-carousel" class="relative m-5 sm:hidden" data-carousel="static">
+<div id="default-carousel" class="relative m-5 md:hidden" data-carousel="static">
 <p className="mb-5 text-xl font-bold  text-[#353bc1]">
         Get started with serverless Topics
       </p>
@@ -150,7 +150,7 @@ const Topics = () => {
       </div>
 </div>
 
-    <div className="hidden sm:block">
+    <div className="hidden md:block">
       <p className="mt-10 mb-5 text-xl font-bold  text-[#353bc1]">
         Get started with serverless Topics
       </p>
