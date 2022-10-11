@@ -296,8 +296,8 @@ const UserTweets = () => {
           })}
         </div>
 
-        <div className=" flex mx-3 sm:mx-0">
-        <div className=" xl:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
+        <div className=" flex mx-5 ">
+        <div className="  overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white mr-5 p-10">
@@ -309,7 +309,7 @@ const UserTweets = () => {
               ) : allData.length > 0 ? (
                 allData.map((item, index) => {
                   return (
-                    <div className=" bg-white hover:shadow-2xl  lg:mx-0 lg:ml-10   mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
+                    <div className=" bg-white hover:shadow-2xl  lg:mx-0  mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9 mb-5">
                         <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}
