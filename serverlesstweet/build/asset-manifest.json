@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b5c1c11f.css",
-    "main.js": "/static/js/main.58965243.js",
+    "main.css": "/static/css/main.5628156a.css",
+    "main.js": "/static/js/main.35c82928.js",
     "static/media/dynamodb.svg": "/static/media/dynamodb.38a7c3441134905ce24a83621cc2b353.svg",
     "static/media/apigateway.svg": "/static/media/apigateway.d90bc1d367f0c73a128c3334031a770c.svg",
     "static/media/stepfunction.svg": "/static/media/stepfunction.4e6926554a7a682d609e59c184e0f08b.svg",
@@ -9,11 +9,11 @@
     "static/media/codepipeline.svg": "/static/media/codepipeline.4f6b3031f3a0207b75979cf53ea59ae8.svg",
     "static/media/IAM.svg": "/static/media/IAM.4ef65020bd18227c0b8c486b60288098.svg",
     "index.html": "/index.html",
-    "main.b5c1c11f.css.map": "/static/css/main.b5c1c11f.css.map",
-    "main.58965243.js.map": "/static/js/main.58965243.js.map"
+    "main.5628156a.css.map": "/static/css/main.5628156a.css.map",
+    "main.35c82928.js.map": "/static/js/main.35c82928.js.map"
   },
   "entrypoints": [
-    "static/css/main.b5c1c11f.css",
-    "static/js/main.58965243.js"
+    "static/css/main.5628156a.css",
+    "static/js/main.35c82928.js"
   ]
 }

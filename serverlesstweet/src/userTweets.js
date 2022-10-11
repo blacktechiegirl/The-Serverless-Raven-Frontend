@@ -18,17 +18,10 @@ import { ToastContainer } from "react-toastify";
 import PostTweet from "./PostTweet";
 import Comments from "./Comments";
 
-
 const UserTweets = () => {
   const [allData, setAllData] = useState([]);
   const [postLoading, setPostLoading] = useState([]);
   const accountpath = new AccountService();
-  const [commentData, setCommentData] = useState([]);
-  const [commentContent, setCommentContent] = useState("");
-  const [postCommentId, setPostCommentId] = useState("");
-  const skelArr = [1, 2, 3, 4];
-  const [commnetLoading, setCommentLoading] = useState(false);
-  const [commentLoader, setCommentLoader] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [postLoader, setPostLoader] = useState(false);
@@ -38,34 +31,12 @@ const UserTweets = () => {
   const [updateIndex, setUpdateIndex] = useState();
   const [postContent, setPostContent] = useState("");
   const [activeComments, setActiveComment] = useState();
+  const [postCommentId, setPostCommentId] = useState("");
+
+  const skelArr = [1, 2, 3, 4];
 
   const handleDataUpdate = (newpost) => {
     setAllData([newpost, ...allData]);
-  };
-
-  // Update a new Tweet
-  const updatePost = async (content) => {
-    setPostLoader(true);
-    const userData = {
-      content,
-    };
-    try {
-      const output = await accountpath.updatePost(updateId, userid, userData);
-      if (output) {
-        if (parseInt(output.status) === 200) {
-          setAllData([
-            ...allData.slice(0, updateIndex),
-            output.data.data,
-            ...allData.slice(updateIndex + 1),
-          ]);
-          setPostLoader(false);
-          ToastSuccess(output.data.message);
-          setShowModal(false);
-        }
-      }
-    } catch (err) {
-      ToastError(err);
-    }
   };
 
   const username = localStorage.getItem("userName");
@@ -119,45 +90,24 @@ const UserTweets = () => {
     fetchData();
   }, []);
 
-  // View Comments
-  const viewComments = async (postid) => {
-    setActiveComment(true);
-    setPostCommentId(postid);
-    try {
-      setCommentLoading(true);
-      const output = await accountpath.getComments(postid);
-      if (output) {
-        console.log(output);
-        if (parseInt(output.status) === 200) {
-          setCommentData(output.data.data);
-          setCommentLoading(false);
-        }
-      }
-    } catch (err) {
-      ToastError(err);
-    }
-  };
-
-  //Post Comment
-  const postComment = async () => {
-    setCommentLoader(true);
+  // Update a new Tweet
+  const updatePost = async (content) => {
+    setPostLoader(true);
     const userData = {
-      postid: postCommentId,
-      userid,
-      username,
-      comment: commentContent,
+      content,
     };
-
-    console.log(userData);
-    const output = await accountpath.createComment(userData);
-    console.log(output);
     try {
+      const output = await accountpath.updatePost(updateId, userid, userData);
       if (output) {
         if (parseInt(output.status) === 200) {
-          setCommentData([output.data.data, ...commentData]);
+          setAllData([
+            ...allData.slice(0, updateIndex),
+            output.data.data,
+            ...allData.slice(updateIndex + 1),
+          ]);
+          setPostLoader(false);
           ToastSuccess(output.data.message);
-          setCommentContent("");
-          setCommentLoader(false);
+          setShowModal(false);
         }
       }
     } catch (err) {
@@ -431,88 +381,6 @@ const UserTweets = () => {
                 })
               ) : null}
             </div>
-          </div>
-          <div className=" hidden sm:block container w-[30%] ml-5 bg-white shadow-lg mb-5 h-[800px] p-5 rounded-l overflow-auto">
-            {postCommentId ? (
-              <div className=" grid grid-cols-1 0">
-                <div>
-                  <p className="font-sora font-semibold">
-                    Hey {username.split(" ")[0]}, No comment yet ?
-                  </p>
-                  <div className="flex relative">
-                    <p className="= top-3 left-4 grid col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center mr-3 my-4 ">
-                      {username[0]}
-                    </p>
-                    <TextareaAutosize
-                      value={commentContent}
-                      onChange={(e) => setCommentContent(e.target.value)}
-                      placeholder={"Drop a comment"}
-                      className="d-flex border-2 border-gray-300 rounded-3xl  w-full  focus:outline-none focus:border-[#353bc1] my-4 p-2 "
-                    />
-                  </div>
-                  {commentContent.length > 0 ? (
-                    commentLoader ? (
-                      <div className="text-white relative py-2">
-                        <CircularProgress />
-                      </div>
-                    ) : (
-                      <div className="flex justify-end">
-                        <button
-                          onClick={() => postComment()}
-                          className="bg-[#353bc1] px-4 py-1 mb-2 text-white text-[10px]  rounded-md "
-                        >
-                          Drop it
-                        </button>
-                      </div>
-                    )
-                  ) : null}
-                </div>
-                <div>
-                  {commnetLoading ? (
-                    skelArr.map((item) => {
-                      return <Skeleton />;
-                    })
-                  ) : commentData.length === 0 ? (
-                    <div className="text-center mt-12">
-                      <p className="text-2xl font-bold ">oops 😏 !</p>
-                      <p className="text-lg">No one has dropped a comment</p>
-                    </div>
-                  ) : (
-                    commentData.map((item) => {
-                      return (
-                        <div className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
-                          <p className=" col-span-1 w-[40px] h-[40px] flex justify-center items-center text-md p-4 mr-4 bg-white text-[#353bc1] rounded-full font-bold">
-                            {item.userName[0]}
-                          </p>
-                          <div className="col-span-7 ml-3">
-                            <p className="font-bold mt-2 mb-2">
-                              {item.userName}
-                            </p>
-                            <p className="text-sm mb-3">{item.comment}</p>
-                            <div className="flex justify-end">
-                              <button className="bg-white px-5 py-2 rounded-md text-sm flex justify-between items-center ">
-                                <AiOutlineLike className="text-[#353bc1] " />
-                                <p></p>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center mt-2 bg-[rgba(0,0,0,0.04)] rounded-lg p-4">
-                <p className="font-sora  text-[#353bc1] flex text-[14px] justify-between">
-                  <p>Click on</p>{" "}
-                  <p className="mx-3 my-1">
-                    <BsChatDotsFill className="text-[#353bc1 mx-4] " />
-                  </p>{" "}
-                  <p>icon to view comments</p>
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>{" "}

@@ -10,7 +10,7 @@ const Comments = ({ commentId }) => {
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
   const accountpath = new AccountService();
-  const skelArr = [1, 2, 3, 4];
+  const skelArr = [1, 2];
 
   const [commnetLoading, setCommentLoading] = useState(false);
   const [commentData, setCommentData] = useState([]);
