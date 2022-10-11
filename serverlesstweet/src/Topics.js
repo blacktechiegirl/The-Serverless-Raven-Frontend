@@ -19,7 +19,7 @@ const Topics = () => {
     {
       imgurl: lambda1,
       heading: "lambda",
-      url: "/topic/0 ",
+      url: "/topic/0",
     },
     {
       imgurl: stepfunction,

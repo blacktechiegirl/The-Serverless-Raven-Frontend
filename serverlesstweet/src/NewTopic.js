@@ -163,7 +163,7 @@ const NewTopic = () => {
           Latest Tweets on {topics[topicid].heading}
         </h3>
         <div className=" flex">
-          <div className="container sm:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
+          <div className="container overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white  mr-5 p-10">
