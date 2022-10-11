@@ -136,29 +136,29 @@ const NewTopic = () => {
   return (
     <div>
       <Navbar handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
-      <div className="container sm:px-10 lg:px-20 font-sora">
-        <div className="ml-5">
-          <div className="flex  my-8 sm:mt-16 mb-8">
-            <img src={topics[topicid].imgurl} className="w-[60%] sm:w-40 " />
-            <div className="flex justify-center  flex-col">
-              <h1 className=" mx-10 sm:mx-16 mt-4 text-2xl sm:text-5xl font-montserrat">
+      <div className=" sm:px-10 lg:px-20 font-sora">
+        <div className="ml-5 my-10 lg:mt-20">
+          <div className="grid grid-cols-6  ">
+            <img src={topics[topicid].imgurl} className="w-full max-w-[150px]  grid col-span-2 md:col-span-1" />
+            <div className="grid col-span-4 md:col-span-5">
+              <h1 className=" mx-10 md:mx-16 text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-montserrat">
                 {topics[topicid].heading.toUpperCase()}
               </h1>
-              <p className="mx-10 sm:mx-16 my-4 text-sm sm:text-2xl">
+              <p className="mx-10 md:mx-16 my-4 text-sm md:text-xl xl:text-2xl">
                 {" "}
                 Find here the latest tweets, discussions and threads on{" "}
                 {topics[topicid].heading} !
               </p>
             </div>
           </div>
-          <div className="hidden md:grid grid-cols-2 sm:grid-cols-6">
+          <div className="hidden md:grid md:grid-cols-3 md:gap-3 mt-6 lg:grid-cols-6">
             {data.map((item) => {
               return (
-              <div className="cursor-pointer card font-sora bg-white p-4 my-8 mr-6 text-center rounded-lg hover:bg-[#f7d7bc] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">{item.key}</div>)
+              <div className="cursor-pointer card font-sora bg-white p-4 lg:my-8 mr-6text-center rounded-lg hover:bg-[#f7d7bc] focus:outline-none focus:ring-2 focus:ring-[#d05a17]">{item.key}</div>)
             })}
           </div>
         </div>
-        <h3 className="my-6 mx-5 font-bold sm:font-light sm:text-3xl">
+        <h3 className="my-6 mx-5 font-bold sm:font-light sm:text-xl md:text-3xl">
           {" "}
           Latest Tweets on {topics[topicid].heading}
         </h3>
@@ -166,7 +166,7 @@ const NewTopic = () => {
           <div className="container overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
-                <div className="bg-white  mr-5 p-10">
+                <div className="bg-white  p-10">
                   {" "}
                   {skelArr.map((item) => (
                     <Skeleton />
@@ -175,7 +175,7 @@ const NewTopic = () => {
               ) : (
                 allData.map((item) => {
                   return (
-                    <div className="  bg-white hover:shadow-2xl mx-5  sm:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
+                    <div className="  bg-white hover:shadow-2xl mx-5 md:ml-10 sm:mx-0 mt-0 mb-5 p-5 rounded-lg divide-y-[1px] divide-gray">
                       <div className="grid grid-cols-11 sm:grid-cols-9">
                         <p className="grid col-span-2 sm:col-span-1 text-md p-2  bg-[rgba(0,0,0,0.08)] text-[#353bc1] font-bold rounded-full w-[40px] h-[40px] text-center  ">
                           {item.userName[0]}

@@ -55,10 +55,10 @@ const HomePage = () => {
         <Topics />
         <div className="mx-5 md:mx-0 2xl:mx-0">
         <div className="flex">
-          <p className="hidden lg:block mb-3 font-bold font-sora w-[30%] ml-2 text-[#353bc1]">
+          <p className="hidden lg:block mb-3 font-bold font-sora w-[28%] ml-2 text-[#353bc1]">
             Profile
           </p>
-          <p className=" mb-3 font-bold font-sora w-[50%]  lg:ml-8 text-[#353bc1]">
+          <p className=" mb-3 font-bold font-sora text-[#353bc1]">
             Latest Serverless Trends
           </p>
           <p className="hidden mb-3 font-bold font-sora w-[30%] ml-8 text-[#353bc1]">
@@ -67,10 +67,10 @@ const HomePage = () => {
         </div>
         <div className=" flex">
           <Profile />
-          <div className=" lg:w-[70%] overflow-auto sm:h-[800px] scrollbar-hide">
-            <div>
+          <div className="overflow-auto sm:h-[800px] lg:w-[70%] scrollbar-hide">
+            <div >
               {postLoading ? (
-                <div className="bg-white ml-10 mr-5 p-10">
+                <div className="bg-white lg:ml-10 lg:mr-5 p-10 w-full ">
                   {" "}
                   {skelArr.map((item) => (
                     <Skeleton />
