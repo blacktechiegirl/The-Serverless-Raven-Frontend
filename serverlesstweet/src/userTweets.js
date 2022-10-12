@@ -379,6 +379,7 @@ const UserTweets = () => {
           </div>
         </div>
       </div>{" "}
+      
       <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
       <ToastContainer />
     </div>

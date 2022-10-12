@@ -113,7 +113,7 @@ const Comments = ({ commentId }) => {
           ) : (
             commentData.map((item) => {
               return (
-                <div key={item.commentId} className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
+                <div key={item.commentId} className=" bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
                   <p className=" col-span-1 w-[40px] h-[40px] flex justify-center items-center text-md p-4 mr-4 bg-white text-[#353bc1] rounded-full font-bold">
                     {item.userName[0]}
                   </p>
