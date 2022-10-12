@@ -39,7 +39,6 @@ const ForgotPass = () => {
     if (password == confirmPassword) {
       cognitoUser.confirmPassword(code, password, {
         onSuccess: function (data) {
-          console.log("CodeDeliveryData from forgotPassword: " + data);
           toast.success("Password Reset Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -75,7 +74,6 @@ const ForgotPass = () => {
     cognitoUser.forgotPassword({
       onSuccess: function (data) {
         // successfully initiated reset password request
-        console.log("CodeDeliveryData from forgotPassword: " + data);
       },
       onFailure: function (err) {
         toast.error(err.message, {
@@ -86,26 +84,13 @@ const ForgotPass = () => {
       },
       //Optional automatic callback
       inputVerificationCode: function (data) {
-        console.log("Code sent to: " + data);
         setLoading(false);
         setStage(2);
 
-        // var verificationCode = document.getElementById('code').value;
-        // var newPassword = password;
-        // cognitoUser.confirmPassword(verificationCode, newPassword, {
-        //     onSuccess() {
-        //         setLoading(false)
-        //         setStage(2)
-        //         console.log('Password confirmed!');
-        //     },
-        //     onFailure(err) {
-        //         console.log('Password not confirmed!');
-        //     },
-        // });
+  
       },
     });
   };
-  console.log(email, password);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 ">

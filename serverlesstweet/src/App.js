@@ -22,7 +22,6 @@ const HomePage = () => {
   const [activeComments, setActiveComment] = useState();
 
   const handleDataUpdate = (newpost) => {
-    console.log(newpost);
     setPostData([newpost, ...postData]);
   };
 
@@ -33,7 +32,6 @@ const HomePage = () => {
       try {
         const output = await accountpath.getPosts();
         if (output) {
-          console.log(output);
           if (parseInt(output.status) === 200) {
             setPostData(output.data.data);
             setPostLoading(false);

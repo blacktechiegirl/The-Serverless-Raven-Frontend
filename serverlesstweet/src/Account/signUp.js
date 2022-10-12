@@ -24,7 +24,6 @@ const SignUp = () => {
 
   var attributeUsername = new CognitoUserAttribute(dataUsername);
   attributeList.push(attributeUsername);
-  console.log(attributeList);
 
   const passRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
@@ -33,7 +32,6 @@ const SignUp = () => {
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const validEmail = emailRegex.test(email);
   const validPassword = passRegex.test(password);
-  console.log(validPassword);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -65,7 +63,6 @@ const SignUp = () => {
                 setEmail("");
                 setConfirmPassword("");
                 setPassword("");
-                console.log(result);
                 ToastSuccess(
                   "You have signed up successfully. Kindly Verify your Email and sign in again"
                 );
@@ -79,7 +76,6 @@ const SignUp = () => {
           setPassword("");
         }
       } catch (err) {
-        console.log(err);
         setEmail("");
         setConfirmPassword("");
         setPassword("");

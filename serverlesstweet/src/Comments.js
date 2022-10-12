@@ -29,9 +29,7 @@ const Comments = ({ commentId }) => {
       comment: commentContent,
     };
 
-    console.log(userData);
     const output = await accountpath.createComment(userData);
-    console.log(output);
     try {
       if (output) {
         if (parseInt(output.status) === 200) {
@@ -55,7 +53,6 @@ const Comments = ({ commentId }) => {
         setCommentLoading(true);
         const output = await accountpath.getComments(commentId);
         if (output) {
-          console.log(output);
           if (parseInt(output.status) === 200) {
             setCommentData(output.data.data);
             setCommentLoading(false);
@@ -116,7 +113,7 @@ const Comments = ({ commentId }) => {
           ) : (
             commentData.map((item) => {
               return (
-                <div className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
+                <div key={item.commentId} className="flex bg-[rgba(0,0,0,0.08)] rounded-lg mt-4 p-4 grid grid-cols-8 ">
                   <p className=" col-span-1 w-[40px] h-[40px] flex justify-center items-center text-md p-4 mr-4 bg-white text-[#353bc1] rounded-full font-bold">
                     {item.userName[0]}
                   </p>

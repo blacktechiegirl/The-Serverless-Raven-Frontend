@@ -8,9 +8,11 @@ import CircularProgress from "./UI/CircularProgress";
 
 const PostTweet = ({ handleDataUpdate }) => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState();
+  const [selectedOption, setSelectedOption] = useState([]);
   const [postContent, setPostContent] = useState("");
   const [postLoader, setPostLoader] = useState(false);
+  const [filled, setFilled] = useState();
+  
 
   const username = localStorage.getItem("userName");
   const userid = localStorage.getItem("userId");
@@ -38,6 +40,11 @@ const PostTweet = ({ handleDataUpdate }) => {
 
   // Post a new Tweet
   const createPost = async (content) => {
+    if (selectedOption.length === 0){
+      setFilled(false)
+      ToastError('Enter all required fields !')
+    }else{
+      setFilled(true)
     let topics = [];
     selectedOption.map((item) => topics.push(item.value));
     setPostLoader(true);
@@ -49,7 +56,6 @@ const PostTweet = ({ handleDataUpdate }) => {
     };
     try {
       const output = await accountpath.createPost(userData);
-      console.log(output);
 
       if (output) {
         if (parseInt(output.status) === 200) {
@@ -59,14 +65,14 @@ const PostTweet = ({ handleDataUpdate }) => {
           setShowModal(false);
           setPostContent("");
         } else if (parseInt(output.status) === 400) {
-          console.log("An error occured");
+          ToastError('An Error Occured')
         }
       } else {
-        console.log("error");
+        ToastError("Error");
       }
     } catch (err) {
       ToastError(err);
-    }
+    }}
   };
 
   return (
@@ -89,7 +95,7 @@ const PostTweet = ({ handleDataUpdate }) => {
           id="defaultModal"
           tabindex="-1"
           aria-hidden="true"
-          class="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full mx-auto"
+          className="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full mx-auto"
         >
           <div className="relative top-20 p-4 w-full max-w-2xl h-full md:h-auto mx-auto">
             <div className="relative bg-white rounded-lg shadow ">
@@ -131,6 +137,7 @@ const PostTweet = ({ handleDataUpdate }) => {
                       isMulti={true}
                       value={selectedOption}
                       onChange={setSelectedOption}
+                      className={filled === true?null: filled === false ?"border border-red-600": null}
                     />
                   </div>
 

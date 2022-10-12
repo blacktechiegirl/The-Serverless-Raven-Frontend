@@ -4,8 +4,7 @@ import { ToastError, ToastSuccess } from "./UI/ToastTweet";
 import Skeleton from "./UI/Skeleton";
 import { format } from "timeago.js";
 import { AiOutlineLike, AiOutlineRetweet } from "react-icons/ai";
-import { BsChatDotsFill, BsChatDots } from "react-icons/bs";
-import TextareaAutosize from "react-textarea-autosize";
+import { BsChatDotsFill} from "react-icons/bs";
 import CircularProgress from "./UI/CircularProgress";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -76,7 +75,6 @@ const UserTweets = () => {
       try {
         const output = await accountpath.getPostById(userid);
 
-        console.log(output);
         if (output) {
           if (parseInt(output.status) === 200) {
             setAllData(output.data.data);
@@ -118,11 +116,8 @@ const UserTweets = () => {
   // Delete a Tweet
   const deletePost = async () => {
     setPostLoader(true);
-
-    // console.log(deleteIndex);
     try {
       const output = await accountpath.deletePost(deleteId, userid);
-      console.log(deleteId);
       if (output) {
         if (parseInt(output.status) === 200) {
           setAllData([...allData.filter((item) => deleteId !== item.postId)]);
@@ -151,7 +146,7 @@ const UserTweets = () => {
           id="defaultModal"
           tabindex="-1"
           aria-hidden="true"
-          class="font-sora fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full mx-auto"
+          className="font-sora fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full mx-auto"
         >
           <div className="relative top-20 p-4 w-full max-w-2xl h-full md:h-auto mx-auto">
             {/* <!-- Modal content --> */}
@@ -219,40 +214,40 @@ const UserTweets = () => {
       ) : null}
       {showDeleteModal ? (
         <div
-          class="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
+          className="fixed z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
           id="my-modal"
         >
           {" "}
-          <div class="relative top-20 mx-auto p-5 border   sm:w-[500px] shadow-lg rounded-md bg-white">
-            <div class="mt-3 text-center">
-              <div class="mx-auto flex items-center justify-center">
+          <div className="relative top-20 mx-auto p-5 border   sm:w-[500px] shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <div className="mx-auto flex items-center justify-center">
                 <FontAwesomeIcon
                   icon={faTriangleExclamation}
                   className="text-[red] text-3xl mb-6"
                 />
               </div>
-              <h3 class="text-lg leading-6 font-medium text-gray-900">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
                 Confirm Delete Action
               </h3>
-              <div class="mt-2 px-7 py-3">
-                <p class="text-sm text-gray-500">
+              <div className="mt-2 px-7 py-3">
+                <p className="text-sm text-gray-500">
                   Are you sure you want to delete this post ?
                 </p>
               </div>
-              <div class="flex justify-between px-4 py-3">
+              <div className="flex justify-between px-4 py-3">
                 <button
                   onClick={() => {
                     setShowDeleteModal(false);
                   }}
                   id="ok-btn"
-                  class="px-4 py-2 text-sm bg-[#353bc1] text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  className="px-4 py-2 text-sm bg-[#353bc1] text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 >
                   Decline
                 </button>
                 <button
                   onClick={() => deletePost()}
                   id="ok-btn"
-                  class="px-4 py-2 text-sm bg-red-500 text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+                  className="px-4 py-2 text-sm bg-red-500 text-white font-medium rounded-md w-[150px] shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
                 >
                   {postLoader ? (
                     <div className="text-white relative py-2">

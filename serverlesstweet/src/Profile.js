@@ -33,7 +33,7 @@ const Profile = () => {
       </>
       <div>
         <p className="text-center font font-bold m-2">My Interests</p>
-        <div class="">
+        <div>
           <div className="text-center p-3">Lambda</div>
           <div className="text-center p-3">Dynamodb</div>
           <div className="text-center p-3 mb-2">Step Functions</div>
