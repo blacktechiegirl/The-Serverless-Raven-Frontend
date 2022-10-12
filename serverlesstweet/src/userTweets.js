@@ -4,7 +4,7 @@ import { ToastError, ToastSuccess } from "./UI/ToastTweet";
 import Skeleton from "./UI/Skeleton";
 import { format } from "timeago.js";
 import { AiOutlineLike, AiOutlineRetweet } from "react-icons/ai";
-import { BsChatDotsFill} from "react-icons/bs";
+import { BsChatDotsFill } from "react-icons/bs";
 import CircularProgress from "./UI/CircularProgress";
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -263,7 +263,7 @@ const UserTweets = () => {
         </div>
       ) : null}
       <Navbar handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
-      <div className="mx-5 2xl:container mx-auto sm:px-10 lg:px-20 font-sora">
+      <div className="2xl:container mx-auto sm:px-10 lg:px-20 font-sora">
         <div className="flex mx-3 my-8">
           <div className=" border-2 border-[#353bc1] bg-white h-[80px] w-[100px] sm:h-[150px] sm:w-[230px] md:w-44 md:h-44 mt-5 sm:my-14 rounded-full flex justify-center items-center text-2xl sm:text-5xl text-[#353bc1] font-bold ">
             {firstname + lastname}
@@ -292,7 +292,7 @@ const UserTweets = () => {
         </div>
 
         <div className=" flex ">
-        <div className="container  overflow-auto sm:h-[800px] scrollbar-hide">
+          <div className="container  overflow-auto sm:h-[800px] scrollbar-hide">
             <div>
               {postLoading ? (
                 <div className="bg-white lg:mr-5 p-10">
@@ -358,7 +358,7 @@ const UserTweets = () => {
                                 className={
                                   postCommentId !== item.postId
                                     ? "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center "
-                                    : "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center border border-2 border-[#353bc1] "
+                                    : "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center  border-2 border-[#353bc1] "
                                 }
                               >
                                 <BsChatDotsFill className="text-[#353bc1] " />
@@ -379,8 +379,9 @@ const UserTweets = () => {
           </div>
         </div>
       </div>{" "}
-      
-      <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
+      <div className="md:hidden">
+        <PostTweet handleDataUpdate={(newpost) => handleDataUpdate(newpost)} />
+      </div>{" "}
       <ToastContainer />
     </div>
   );
