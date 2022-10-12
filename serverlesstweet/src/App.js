@@ -65,7 +65,7 @@ const HomePage = () => {
         </div>
         <div className=" flex">
           <Profile />
-          <div className="overflow-auto sm:h-[800px] lg:w-[70%] scrollbar-hide">
+          <div className="container overflow-auto md:h-[800px] lg:w-[70%] scrollbar-hide">
             <div >
               {postLoading ? (
                 <div className="bg-white lg:ml-10 lg:mr-5 p-10 w-full ">

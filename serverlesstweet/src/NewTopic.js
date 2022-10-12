@@ -208,7 +208,7 @@ const NewTopic = () => {
                                 className={
                                   postCommentId !== item.postId
                                     ? "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center "
-                                    : "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center border border-2 border-[#353bc1] "
+                                    : "bg-[rgb(0,0,0,0.04)] px-5 py-2 rounded-md text-sm flex justify-between items-center  border-2 border-[#353bc1] "
                                 }
                               >
                                 <BsChatDotsFill className="text-[#353bc1] " />
